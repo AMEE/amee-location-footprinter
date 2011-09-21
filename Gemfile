@@ -28,6 +28,7 @@ end
 
 group :test do
 gem 'rspec', '~> 2.6.0'
+gem 'rspec-rails'
 gem 'shoulda', '~> 2.11.3'
 gem "factory_girl_rails",'~> 1.2.0'
 gem 'redgreen'
