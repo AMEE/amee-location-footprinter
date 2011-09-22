@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Lat:</b>
+  <%= @checkin.lat %>
+</p>
+
+<p>
+  <b>Lon:</b>
+  <%= @checkin.lon %>
+</p>
+
+<p>
+  <b>Timestamp:</b>
+  <%= @checkin.timestamp %>
+</p>
+
+<p>
+  <b>Foursquare:</b>
+  <%= @checkin.foursquare_id %>
+</p>
+
+<p>
+  <b>Timezone:</b>
+  <%= @checkin.timezone %>
+</p>
+
+
+<%= link_to 'Edit', edit_checkin_path(@checkin) %> |
+<%= link_to 'Back', checkins_path %>

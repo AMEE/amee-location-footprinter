@@ -22,6 +22,12 @@ module Cico2
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
+    config.generators do |g|
+        g.test_framework :rspec, :fixture => true, :views => false
+        g.fixture_replacement :factory_girl, :dir => "spec/factories"
+    end
+
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
