@@ -1,0 +1,21 @@
+<h1>Hi <%= current_user.name %></h1>
+
+<%= image_tag(current_user.photo) %>
+
+Here's a list of your most recent checkins:
+
+<table border="0" cellspacing="5" cellpadding="5">
+  <tr><th>Name</th><th>Time</th><th>Latitude</th><th>Longitude</th></tr>
+
+<% current_user.checkins.each do |c| %>
+
+  <tr><td><%= c.venue.name %></td><td><%= time_ago_in_words(c.created_at) %> </td><td><%= c.venue.location.lat %></td><td><%= c.venue.location.lng %></td></tr>
+
+
+<% end %>
+
+</table>
+
+
+
+<p>Find me in app/views/footprint/user.html.erb</p>

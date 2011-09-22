@@ -1,4 +1,17 @@
 Cico2::Application.routes.draw do
+
+  match 'footprints/user' => 'footprints#user'
+  match 'footprints/checkins' => 'footprints#checkins'
+
+  match 'users/new' => 'users#new'
+  match 'users/callback' => 'users#callback'
+
+  resource :user do
+    collection do
+      get 'callback'
+    end
+  end
+
   resources :checkins
 
   # The priority is based upon order of creation:
@@ -50,7 +63,7 @@ Cico2::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "users#new"
 
   # See how all your routes lay out with "rake routes"
 

@@ -4,7 +4,7 @@ gem 'rails', '3.0.10'
 
 # gem 'mysql'
 
-# gem 'omniauth'
+gem 'quimby'
 
 # relevant amee gems
 gem 'amee','~> 3.0'
