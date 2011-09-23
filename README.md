@@ -24,8 +24,8 @@ In each case, to stop us fetching the wrong version of the from a remote server,
 
 Before we install the gem locally, we need to be sure we're on the correct branch, and and have the correct dependencies, before building the gem:
 
-    cd amee-data-abstraction-
-    git checkout rails 3
+    cd amee-data-abstraction
+    git checkout rails3
     bundle install
 
 Once we have this, we can then build the gem, and install it into the current gemset. Calling `gem install` with a given path like this overrides the normal behaviour of looking for pre-installed gem, or checking remotely for it.
@@ -37,16 +37,16 @@ Once we have this, we can then build the gem, and install it into the current ge
 
 We need to repeat the same process for the other two gems now:
 
-    cd ../amee-data-persistence-
-    git checkout rails 3
+    cd ../amee-data-persistence
+    git checkout rails3
     bundle install
     rake build 
     gem install ./pkg/amee-data-persistence-1.1.0.gem
 
 And finally do the same for the `amee-ruby` gem, which depends on the other two gems:
 
-    cd ../amee-ruby-
-    git checkout rails 3
+    cd ../amee-ruby
+    git checkout rails3
     bundle install
     rake build 
     gem install ./pkg/amee-3.0.1.gem
