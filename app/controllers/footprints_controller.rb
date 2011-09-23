@@ -7,6 +7,8 @@ class FootprintsController < ApplicationController
   end
 
   def user
+    @total_co2 = 0
+    @user_checkins = current_user.checkins    
   end
 
   def checkins

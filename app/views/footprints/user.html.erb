@@ -5,17 +5,40 @@
 Here's a list of your most recent checkins:
 
 <table border="0" cellspacing="5" cellpadding="5">
-  <tr><th>Name</th><th>Time</th><th>Latitude</th><th>Longitude</th></tr>
+  <tr><th>Name</th><th>Time</th><th>Latitude</th><th>Longitude</th><th>Distance</th>CO2</th></tr>
 
-<% current_user.checkins.each do |c| %>
+<% @user_checkins.each_with_index do |c, i | %>
 
-  <tr><td><%= c.venue.name %></td><td><%= time_ago_in_words(c.created_at) %> </td><td><%= c.venue.location.lat %></td><td><%= c.venue.location.lng %></td></tr>
+<% 
+unless (i == 0)
+  puts i
+  dist = distance_between_points(c, @user_checkins[i-1])
 
+  puts number_with_precision(dist.to_km, :precision => 2)
+  carbon = carbon_for_distance(dist.to_km)
+
+  puts carbon.to_s
+  @total_co2 += carbon.value
+end
+%>
+
+  <tr>
+    <td><%= c.venue.name %></td>
+    <td><%= time_ago_in_words(c.created_at) %> </td>
+    <td><%= c.venue.location.lat %></td>
+    <td><%= c.venue.location.lng %></td>
+    <td><%= number_with_precision(dist.to_km, :precision => 2) unless i == 0 %></td>
+    <td><%= carbon.to_s %></td>
+  </tr>
+
+<% 
+# debugger
+# total_co2 += co2 unless i == 0
+ %>
 
 <% end %>
 
 </table>
 
+<h3>Total CO2 for all this bar hopping is <%= number_with_precision(@total_co2, :precision => 2) %> kilograms of CO2</h3>
 
-
-<p>Find me in app/views/footprint/user.html.erb</p>

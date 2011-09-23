@@ -4,12 +4,17 @@ gem 'rails', '3.0.10'
 
 # gem 'mysql'
 
+# handy foursquare library
 gem 'quimby'
+
+# local library for calculating distance between two latlng points
+# on the globe
+gem 'haversine'
 
 # relevant amee gems
 gem 'amee','~> 3.0'
 gem 'amee-data-abstraction', '~> 1.1.0'
-gem 'amee-data-persistence', '~> 1.1.0'
+# gem 'amee-data-persistence', '~> 1.1.0'
 
 # not needed right now
 # gem 'aasm','2.3.1'
