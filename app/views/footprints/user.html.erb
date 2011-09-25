@@ -7,28 +7,34 @@ Here's a list of your most recent checkins:
 <table border="0" cellspacing="5" cellpadding="5">
   <tr><th>Name</th><th>Time</th><th>Latitude</th><th>Longitude</th><th>Distance</th>CO2</th></tr>
 
-<% @user_checkins.each_with_index do |c, i | %>
-
-<% 
-unless (i == 0)
-  puts i
-  dist = distance_between_points(c, @user_checkins[i-1])
-
-  puts number_with_precision(dist.to_km, :precision => 2)
-  carbon = carbon_for_distance(dist.to_km)
-
-  puts carbon.to_s
-  @total_co2 += carbon.value
-end
-%>
+<% @user_checkins.each_with_index do |checkin, i | %>
 
   <tr>
-    <td><%= c.venue.name %></td>
-    <td><%= time_ago_in_words(c.created_at) %> </td>
-    <td><%= c.venue.location.lat %></td>
-    <td><%= c.venue.location.lng %></td>
-    <td><%= number_with_precision(dist.to_km, :precision => 2) unless i == 0 %></td>
-    <td><%= carbon.to_s %></td>
+    <td><%= checkin.venue_name %></td>
+    <td><%= checkin.timestamp %> </td>
+    <td><%= checkin.lat %></td>
+    <td><%= checkin.lon %></td>
+    <td><%= 
+      # we only want to compare when we have two checkins, which both have latlng attributes
+      if i > 1 
+        prev_checkin = @user_checkins[i-1]
+        number_with_precision(distance_between_points(checkin, prev_checkin).to_km, :precision => 2)      
+      end
+     %></td>
+    <td>
+      <% 
+      if i > 1
+        @total_co2 += co2_for_km(distance_between_points(checkin, prev_checkin).to_km)
+      end
+      %>
+      <%= 
+        if i > 1
+        co2_for_km(distance_between_points(checkin, prev_checkin).to_km)
+        end
+         %> 
+    </td>
+    
+    
   </tr>
 
 <% 

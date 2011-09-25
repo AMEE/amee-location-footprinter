@@ -22,6 +22,12 @@ all_calculations {
   correcting(:co2e) { name "Equivalent Carbon Dioxide"}
 }
 
+# # walking will always return zero, so it's not clear if we should even worry about this
+# #  walking 
+# calculation{
+# if we should use it, it should be added here
+# }  
+
 # car
 calculation{
   name 'Car'
