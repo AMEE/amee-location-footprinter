@@ -20,6 +20,12 @@ describe Checkin do
     @checkin.should_not be_valid
   end
 
+  it "should have a venue name" do
+    @checkin = FactoryGirl.build(:checkin, :venue_name => "")
+    @checkin.save
+    @checkin.should_not be_valid
+  end
+
   it "should have a timestamp " do
     @checkin = FactoryGirl.build(:checkin, :timezone => "")
     @checkin.save

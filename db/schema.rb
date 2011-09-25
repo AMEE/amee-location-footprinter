@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110922092810) do
+ActiveRecord::Schema.define(:version => 20110925195511) do
 
   create_table "checkins", :force => true do |t|
     t.string   "lat"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20110922092810) do
     t.string   "timezone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "venue_name"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
@@ -28,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20110922092810) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "foursquare_id"
   end
 
 end

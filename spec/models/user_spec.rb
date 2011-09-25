@@ -8,8 +8,8 @@ describe User do
     @user.should_not be_valid
   end
 
-  it "should have an auth token" do
-    @user = FactoryGirl.build(:user, :token => "")
+  it "should have a foursquare_id token" do
+    @user = FactoryGirl.build(:user, :foursquare_id => "")
     @user.save
     @user.should_not be_valid
   end

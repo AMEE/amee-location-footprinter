@@ -1,3 +1,6 @@
 class Checkin < ActiveRecord::Base
-    validates :lat, :lon, :foursquare_id, :timestamp, :presence => true 
+    belongs_to :user
+  
+    validates :lat, :lon, :foursquare_id, :timestamp, :venue_name, :presence => true
+     
 end

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
-  validates :email, :token, :name, :presence => true
+  has_many :checkins, :dependent => :destroy
+
+  validates :email, :foursquare_id, :name, :presence => true
 
 end
