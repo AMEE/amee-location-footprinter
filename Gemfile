@@ -28,14 +28,21 @@ group :development, :test do
   gem 'sqlite3'
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'capybara'
-  gem 'ruby-debug'
+  gem 'net-http-spy'
+  gem 'guard'
+  gem 'guard-rspec'
+  # only install the fsevent gem for guard, if we're on a mac
+  gem 'rb-fsevent',   :require => false if RUBY_PLATFORM =~ /darwin/i 
+  gem 'growl_notify', :require => false if RUBY_PLATFORM =~ /darwin/i 
+  gem 'pry'
 end
 
 group :test do
-gem 'rspec', '~> 2.6.0'
-gem 'rspec-rails'
-gem 'shoulda', '~> 2.11.3'
-gem "factory_girl_rails",'~> 1.2.0'
-gem 'redgreen'
-gem 'webmock', '~>1.7.0'
+  gem 'rspec', '~> 2.6.0'
+  gem 'rspec-rails'
+  gem 'shoulda', '~> 2.11.3'
+  gem "factory_girl_rails",'~> 1.2.0'
+  gem 'redgreen'
+  gem 'webmock', '~>1.7.0'
+  gem 'vcr'
 end
