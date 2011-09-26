@@ -28,11 +28,13 @@ describe FootprintsHelper do
     
     distance.to_kilometers.should be_within(0.1).of(4.59684510626154)
 
-    # fetch the carbon 
-    helper.co2_for_km(distance.to_meters)
+    flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
+      mock.should_receive(:choose).and_return(nil)
+      mock.should_receive(:calculate!).and_return(nil)
+      mock.should_receive(:[]).with(:co2e).and_return(flexmock(:value => 42))
+    end
 
-    helper.should_receive(:carbon_for_car).with(distance.to_kilometers).and_return(0.940468540290048)
-
+    helper.co2_for_km(distance.to_km).should eq 42
   end
 
   use_vcr_cassette "fetching_carbon_for_domestic_flights"    
