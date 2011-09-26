@@ -22,5 +22,9 @@ Cico2::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  # user letter opener so you can preview quickly instead of
+  # doing the silly email dance
+  config.action_mailer.delivery_method = :letter_opener
 end
 

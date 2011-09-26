@@ -32,6 +32,8 @@ class FootprintsController < ApplicationController
 
     end
       @user_checkins = u.checkins
+      
+      FootprintMailer.footprint_email(current_user).deliver
   end
 
   def checkins
