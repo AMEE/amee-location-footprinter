@@ -45,4 +45,5 @@ group :test do
   gem 'redgreen'
   gem 'webmock', '~>1.7.0'
   gem 'vcr'
+  gem 'flexmock'
 end

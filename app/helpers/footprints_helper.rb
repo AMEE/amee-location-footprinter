@@ -25,7 +25,10 @@ module FootprintsHelper
       carbon_for('short_haul_flight', distance)
     when distance > 3000
       carbon_for('long_haul_flight', distance)
+    else
+      raise Exception
     end
+
   end
 
   def carbon_for(transport, distance)
@@ -37,7 +40,7 @@ module FootprintsHelper
 
 
   def calculate_co2e_for_distance(distance, calculation_prototype)
-    
+
     c = calculation_prototype.begin_calculation
 
     c.choose( 
