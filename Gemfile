@@ -35,6 +35,8 @@ group :development, :test do
   gem 'rb-fsevent',   :require => false if RUBY_PLATFORM =~ /darwin/i 
   gem 'growl_notify', :require => false if RUBY_PLATFORM =~ /darwin/i 
   gem 'pry'
+  # Preview email in the browser instead of sending it.
+  gem "letter_opener"
 end
 
 group :test do
