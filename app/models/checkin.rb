@@ -8,8 +8,9 @@ class Checkin < ActiveRecord::Base
       distance = Haversine.distance(checkin1.lat.to_f, checkin1.lon.to_f, checkin2.lat.to_f, checkin2.lon.to_f)
       distance
     end
-   
+
     def self.co2_for_km(distance)
+
       circumference_of_earth = 40075 # to the nearest km
       case distance
       when 0..1
@@ -46,10 +47,7 @@ class Checkin < ActiveRecord::Base
       # add calculate and save here
       c[:co2e].value
     end
-     
+
 end
 
-# 
 class DistanceError < Exception ;end
-
-# class Error < StandardError ; end
