@@ -10,6 +10,7 @@ class Checkin < ActiveRecord::Base
     end
    
     def self.co2_for_km(distance)
+      circumference_of_earth = 40075 # to the nearest km
       case distance
       when 0..1
         # AMEE always returns '0' for walking, so we can return 
@@ -20,10 +21,10 @@ class Checkin < ActiveRecord::Base
         Checkin.carbon_for('domestic_flight', distance)
       when 1000..3000
         Checkin.carbon_for('short_haul_flight', distance)
-      when distance > 3000
+      when 3000...circumference_of_earth
         Checkin.carbon_for('long_haul_flight', distance)
       else
-        raise Exception
+        raise 'This distance is larger than the circumference of the Earth.'
       end
 
     end
