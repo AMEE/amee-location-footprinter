@@ -4,14 +4,57 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Welcome to example.com, <%= @user.name %></h1>
-    <p>
-      You have successfully signed up to example.com,
-      your username is:.<br/>
-    </p>
-    <p>
-      To login to the site, just follow this link: <%= @url %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
+    <h1>Hi <%= @user.name %></h1>
+
+    <%# = image_tag(@user.photo) %>
+
+    Here's a list of your most recent checkins:
+
+    <table border="0" cellspacing="5" cellpadding="5">
+      <tr><th>Name</th><th>Time</th><th>Latitude</th><th>Longitude</th><th>Distance</th>CO2</th></tr>
+
+    <% @user.checkins.each_with_index do |checkin, i | %>
+      <% puts i %>
+      <tr>
+        <td><%= checkin.venue_name %></td>
+        <td><%= checkin.timestamp %> </td>
+        <td><%= checkin.lat %></td>
+        <td><%= checkin.lon %></td>
+        <td><%= 
+          # we only want to compare when we have two checkins, which both have latlng attributes
+          if i > 1 
+            prev_checkin = @user.checkins[i-1]
+            number_with_precision(User.distance_between_points(checkin, prev_checkin).to_km, :precision => 2)      
+          end
+         %></td>
+        <td>
+          <% 
+          if i > 1
+            # binding.pry
+            @total_co2 += Checkin.co2_for_km(User.distance_between_points(checkin, prev_checkin).to_km)
+          end
+          %>
+          <%= 
+            if i > 1
+            Checkin.co2_for_km(User.distance_between_points(checkin, prev_checkin).to_km)
+            end
+             %> 
+        </td>
+
+
+      </tr>
+
+    <% 
+    # debugger
+    # total_co2 += co2 unless i == 0
+     %>
+
+    <% end %>
+      <%# binding.pry %>
+
+    </table>
+
+    <h3>Total CO2 for all this bar hopping is <%= number_with_precision(@total_co2, :precision => 2) %> kilograms of CO2</h3>
+
   </body>
 </html
