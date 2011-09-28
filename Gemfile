@@ -25,6 +25,7 @@ gem 'amee-data-abstraction', '~> 1.1.0'
 gem 'jquery-rails','~> 1.0.12'
 
 group :development, :test do
+  gem 'gem-open'
   gem 'sqlite3'
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'capybara'
