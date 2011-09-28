@@ -18,13 +18,13 @@ class FootprintsController < ApplicationController
     # cache them in the database
     current_user.checkins.each do |checkin|    
       c = u.checkins.find_or_create_by_foursquare_id(checkin.id)
-
+      # binding.pry
       if c.new_record?
         c.update_attributes!({
-          :lat => checkin.venue.location.lat, 
-          :lon => checkin.venue.location.lat, 
+          :lat => checkin.json['type'] == 'venueless' ? checkin.json['location']['lat'] : checkin.venue.location.lat,
+          :lon => checkin.json['type'] == 'venueless' ? checkin.json['location']['lng'] : checkin.venue.location.lng,
           :timestamp => checkin.created_at, 
-          :venue_name => checkin.venue.name, 
+          :venue_name => checkin.json['type'] == 'venueless' ? checkin.json['location']['name'] : checkin.venue.name,
           :foursquare_id => checkin.id
           })
           c.save!
@@ -33,7 +33,7 @@ class FootprintsController < ApplicationController
     end
       @user_checkins = u.checkins
 
-      FootprintMailer.footprint_email(current_user).deliver
+      FootprintMailer.footprint_email(u).deliver
   end
 
   def checkins

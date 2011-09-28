@@ -7,7 +7,7 @@ Here's a list of your most recent checkins:
 <table border="0" cellspacing="5" cellpadding="5">
   <tr><th>Name</th><th>Time</th><th>Latitude</th><th>Longitude</th><th>Distance</th>CO2</th></tr>
 
-<% @user_checkins.each_with_index do |checkin, i | %>
+  <% @user_checkins.each_with_index do |checkin, i | %>
 
   <tr>
     <td><%= checkin.venue_name %></td>
@@ -15,34 +15,27 @@ Here's a list of your most recent checkins:
     <td><%= checkin.lat %></td>
     <td><%= checkin.lon %></td>
     <td><%= 
-      # we only want to compare when we have two checkins, which both have latlng attributes
-      if i > 1 
-        prev_checkin = @user_checkins[i-1]
-        number_with_precision(distance_between_points(checkin, prev_checkin).to_km, :precision => 2)      
-      end
-     %></td>
+    # we only want to compare when we have two checkins, which both have latlng attributes
+    if i > 1
+      prev_checkin = @user_checkins[i-1]
+      number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2)
+    end
+    %></td>
     <td>
       <% 
       if i > 1
-        @total_co2 += co2_for_km(distance_between_points(checkin, prev_checkin).to_km)
+        @total_co2 += Checkin.co2_for_km(Checkin.distance_between_points(checkin, prev_checkin).to_km)
       end
       %>
       <%= 
-        if i > 1
-        co2_for_km(distance_between_points(checkin, prev_checkin).to_km)
-        end
-         %> 
+      if i > 1
+        Checkin.co2_for_km(Checkin.distance_between_points(checkin, prev_checkin).to_km)
+      end
+      %>
     </td>
-    
-    
   </tr>
 
-<% 
-# debugger
-# total_co2 += co2 unless i == 0
- %>
-
-<% end %>
+  <% end %>
 
 </table>
 
