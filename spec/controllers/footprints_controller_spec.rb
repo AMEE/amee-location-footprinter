@@ -23,22 +23,8 @@ describe FootprintsController do
       end
 
       get 'user'
-      response.should be_success
-
+      response.should redirect_to footprints_thanks_path
     end
-    
-    # <% 
-    # unless (i == 0)
-    #   puts i
-    #   dist = distance_between_points(c, @user_checkins[i-1])
-    # 
-    #   puts number_with_precision(dist.to_km, :precision => 2)
-    #   # carbon = carbon_for_distance(dist.to_km)
-    #   carbon = 0
-    #   puts carbon.to_s
-    #   @total_co2 += carbon
-    # end
-    # %>  
     
   end
 

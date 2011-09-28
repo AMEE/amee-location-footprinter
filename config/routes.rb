@@ -2,6 +2,7 @@ Cico2::Application.routes.draw do
 
   match 'footprints/user' => 'footprints#user'
   match 'footprints/checkins' => 'footprints#checkins'
+  match 'footprints/thanks' => 'footprints#thanks'
 
   match 'users/new' => 'users#new'
   match 'users/callback' => 'users#callback'
