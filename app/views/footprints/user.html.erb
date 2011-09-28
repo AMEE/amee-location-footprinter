@@ -1,3 +1,11 @@
+<%#
+
+NOTE - THIS TEMPLATE WILL NOT BE RENDERED
+WHILE FootprintsController#user REDIRECTS WEB
+USERS TO THE #thanks METHOD
+
+%>
+
 <h1>Hi <%= current_user.name %></h1>
 
 <%= image_tag(current_user.photo) %>
@@ -14,7 +22,7 @@ Here's a list of your most recent checkins:
     <td><%= checkin.timestamp %> </td>
     <td><%= checkin.lat %></td>
     <td><%= checkin.lon %></td>
-    <td><%= 
+    <td><%=
     # we only want to compare when we have two checkins, which both have latlng attributes
     if i > 1
       prev_checkin = @user_checkins[i-1]
@@ -22,12 +30,12 @@ Here's a list of your most recent checkins:
     end
     %></td>
     <td>
-      <% 
+      <%
       if i > 1
         @total_co2 += Checkin.co2_for_km(Checkin.distance_between_points(checkin, prev_checkin).to_km)
       end
       %>
-      <%= 
+      <%=
       if i > 1
         Checkin.co2_for_km(Checkin.distance_between_points(checkin, prev_checkin).to_km)
       end

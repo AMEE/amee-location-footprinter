@@ -11,9 +11,12 @@ gem 'quimby'
 # on the globe
 gem 'haversine'
 
+# take the rendering of the information out of the page request cycle
+gem 'delayed_job'
+
 # relevant amee gems
-gem 'amee','~> 3.0'
-gem 'amee-data-abstraction', '~> 1.1.0'
+gem 'amee','~> 4.0'
+gem 'amee-data-abstraction', '~> 2.0.0'
 # gem 'amee-data-persistence', '~> 1.1.0'
 
 # not needed right now

@@ -33,7 +33,14 @@ class FootprintsController < ApplicationController
     end
       @user_checkins = u.checkins
 
-      FootprintMailer.footprint_email(u).deliver
+      # using delay makes this act as a delayed job
+      # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
+      FootprintMailer.delay.footprint_email(u)
+
+      redirect_to footprints_thanks_path
+  end
+
+  def thanks
   end
 
   def checkins
