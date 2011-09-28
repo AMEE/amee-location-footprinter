@@ -24,13 +24,12 @@ class Checkin < ActiveRecord::Base
       when 3000...circumference_of_earth
         Checkin.carbon_for('long_haul_flight', distance)
       else
-        raise 'This distance is larger than the circumference of the Earth.'
+        raise DistanceError, 'This distance is larger than the circumference of the Earth.', caller
       end
 
     end
 
     def self.carbon_for(transport, distance)
-      puts "#{transport}, #{distance}"
       return 0 if transport == 'walking'
       Checkin.calculate_co2e_for_distance(distance, Calculations[transport.to_sym])
     end
@@ -49,3 +48,8 @@ class Checkin < ActiveRecord::Base
     end
      
 end
+
+# 
+class DistanceError < Exception ;end
+
+# class Error < StandardError ; end

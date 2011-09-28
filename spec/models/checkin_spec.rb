@@ -105,7 +105,6 @@ describe Checkin do
 
   end
 
-
   it "should calculate distances of more than 3000km based on CO2 from long haul flights" do
 
     # fetch the distance
@@ -123,6 +122,22 @@ describe Checkin do
 
   end
 
+  it "should not calculate distances larger than the circumference of the planet" do |variable|
 
+    distance = 40100
+    flexmock('Checkin').should_receive(:carbon_for).with(:long_haul_flight, distance)
+    
+    flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
+      mock.should_receive(:choose).and_return(nil)
+      mock.should_receive(:calculate!).and_return(nil)
+      # arbitrary value
+      mock.should_receive(:[]).with(:co2e).and_return(flexmock(:value => 1000))
+    end
+
+    # https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers/raise-error-matcher
+    expect { Checkin.co2_for_km(distance) }.to raise_error
+    expect { Checkin.co2_for_km(distance) }.to raise_error(DistanceError)
+    
+  end
 
 end
