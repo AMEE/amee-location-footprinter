@@ -177,7 +177,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  amee (~> 4.0)
+  amee (~> 4.1.1)
   amee-data-abstraction (~> 2.0.0)
   capybara
   delayed_job
