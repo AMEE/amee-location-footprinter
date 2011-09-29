@@ -15,7 +15,7 @@ gem 'haversine'
 gem 'delayed_job'
 
 # relevant amee gems
-gem 'amee','~> 4.0'
+gem 'amee','~> 4.1.1'
 gem 'amee-data-abstraction', '~> 2.0.0'
 # gem 'amee-data-persistence', '~> 1.1.0'
 
