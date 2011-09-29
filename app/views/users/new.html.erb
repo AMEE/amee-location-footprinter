@@ -1,9 +1,34 @@
-<h1>Hi there!</h1>
+<style type="text/css" media="screen">
+  body{
+    background: url(/images/bg.jpg);
+  }
+  
+  #pile_o_blocks{
+    background-image: url(/images/pile_o_hexagons.png);
+    background-repeat: no-repeat;
+    position:absolute;
+    top: 0px;
+    left:10px ;
+    height:100%;
+    width:100%;
+  }
+</style>
 
-<h3>Sign in with Foursquare, to see your carbon footprint </h3>
 
-<%= link_to image_tag('connect.png'), @authorize_url %>
+<div id="pile_o_blocks">
+
+  <h1>Welcome to CO4Square!</h1>
+
+  <h3>Sign in with Foursquare, to see your carbon footprint </h3>
 
 
 
+  <%= link_to image_tag('connect.png'), @authorize_url %>
+
+
+
+
+
+  
+</div>
 
