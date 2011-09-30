@@ -1,6 +1,6 @@
 class FootprintsController < ApplicationController
 
-  before_filter :require_user
+  # before_filter :require_user
 
   def user
     @total_co2 = 0
@@ -36,14 +36,17 @@ class FootprintsController < ApplicationController
       # using delay makes this act as a delayed job
       # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
       FootprintMailer.delay.footprint_email(u)
-
-      redirect_to footprints_thanks_path
+      
+      redirect_to footprints_thanks_url
   end
 
   def thanks
+    @user = User.find_or_create_by_foursquare_id(current_user.id)
   end
 
   def checkins
   end
+
+
 
 end

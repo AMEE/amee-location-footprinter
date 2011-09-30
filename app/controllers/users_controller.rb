@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @access_token = foursquare.access_token(code, redirect_url)
     session[:access_token] = @access_token
     
-    redirect_to footprints_user_path
+    redirect_to footprints_user_url
 
   end
 
