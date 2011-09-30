@@ -1,34 +1,27 @@
-<style type="text/css" media="screen">
-  body{
-    background: url(/images/bg.jpg);
-  }
+
+<div class="row">
+
+<div class="span7">
+
+  <div id="amee_logo">
+    <h1><%= image_tag('amee-logo.png', :alt => "AMEE - Environmental Intelligence Everywhere") %></h1>
+  </div>
+
+
+  <h3>CO42  gives you an estimate of the carbon emissions associated with your foursquare check ins.</h3>
+    
+    <p>Based on the distance travelled between checkins, we make a few (fairly basic) assumptions about your mode of transport and the associated carbon emissions.</p>  
+
+  <p style="width:240px;">Each week you get an email summary of your emissions and we hope it’ll make you think about how you get around. CO42 is powered by AMEE - check out www.amee.com for more details</p>
+
+</div>
+
+<div class="span4 offset3">
+
+    <h2 id="welcome_to_co4squared"><%= image_tag('welcome-to-co4squared.png') %></h2>
   
-  #pile_o_blocks{
-    background-image: url(/images/pile_o_hexagons.png);
-    background-repeat: no-repeat;
-    position:absolute;
-    top: 0px;
-    left:10px ;
-    height:100%;
-    width:100%;
-  }
-</style>
-
-
-<div id="pile_o_blocks">
-
-  <h1>Welcome to CO4Square!</h1>
-
-  <h3>Sign in with Foursquare, to see your carbon footprint </h3>
-
-
-
-  <%= link_to image_tag('connect.png'), @authorize_url %>
-
-
-
-
-
+  <%= link_to image_tag('connect.png'), @authorize_url, :class => 'connect  ' %>
   
 </div>
 
+</div>
