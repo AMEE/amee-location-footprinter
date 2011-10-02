@@ -58,33 +58,11 @@
       </td>
     </tr>
 
-  <% @user.checkins.each_with_index do |checkin, i | %>
-<!-- 
-  <td><%# checkin.venue_name %></td>
-  <td><%# checkin.timestamp %> </td>
-  <td><%# checkin.lat %></td>
-  <td><%# checkin.lon %></td>
-  <td><%# 
-  # we only want to compare when we have two checkins, which both have latlng attributes
-  if i > 1 
-    prev_checkin = @user.checkins[i-1]
-    number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2)      
-  end
-  %></td>
-  <td>
-    <%# 
-    if i > 1
-      @total_co2 += Checkin.co2_for_km(Checkin.distance_between_points(checkin, prev_checkin).to_km)
-    end
-    %>
-    <%# 
-    if i > 1
-      Checkin.co2_for_km(Checkin.distance_between_points(checkin, prev_checkin).to_km)
-    end
-    %> 
-  </td>
- -->
-<% end %>
+  <% @user.checkins.each_with_index do |checkin, i | 
+    
+    next if i <= 1 
+    
+  %>
 
 <!-- = Begin Row for a day  = -->
 
@@ -94,7 +72,8 @@
       </td>
       <td width="407" height="25" colspan="6" style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; padding-left:18px; color:#037e90; letter-spacing:2px;">
         <p>
-          MON 3RD DEC
+            <%= checkin.timestamp %>
+          <!-- MON 3RD DEC -->
         </p>
       </td>
       <td width="90" height="25">
@@ -111,7 +90,11 @@
       </td>
       <td width="169" height="42" style="background-color:#f0f2b5;">
         <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 22px; color:#037e90; padding-top:8px;">
-          120<span style="font-size:12px;">km</span>
+            
+          <%= 
+          prev_checkin = @user.checkins[i-1]
+          number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2) %>
+          <span style="font-size:12px;">km</span>
         </p>
       </td>
       <td width="90" height="42" style="background-color:#027d90;">
@@ -127,7 +110,10 @@
       </td>
       <td width="126" height="76" style="background-color:#f0f2b5;">
         <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:6px;">
-          Starting place with a long name
+          <%=
+            prev_checkin.venue_name      
+          %>  
+          <!-- Starting place with a long name -->
         </p>
       </td>
       <td width="51" height="76" colspan="2" style="background-color:#f0f2b5;">
@@ -135,7 +121,8 @@
       </td>
       <td width="179" height="76" colspan="2" style="background-color:#f0f2b5;">
         <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:12px;">
-          Destination with areally long name
+          <%= checkin.venue_name %>
+          <!-- Destination with a really long name -->
         </p>
       </td>
       <td width="90" height="76">
@@ -145,6 +132,7 @@
 
  <!-- = End row for a day = -->
 
+<% end %>
 <!-- = Begin second activity in a given day = -->
 
 
