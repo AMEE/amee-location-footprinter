@@ -66,69 +66,76 @@
 
 <!-- = Begin Row for a day  = -->
 
-    <tr>
-      <td width="35" height="164" rowspan="4">
-        &nbsp;
-      </td>
-      <td width="407" height="25" colspan="6" style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; padding-left:18px; color:#037e90; letter-spacing:2px;">
-        <p>
-            <%= checkin.timestamp %>
-          <!-- MON 3RD DEC -->
-        </p>
-      </td>
-      <td width="90" height="25">
-        <img src="http://localhost:5000/images/email/hex-top.jpg" width="90" height="25" alt="">
-      </td>
-      <td width="68" height="164" colspan="2" rowspan="4">
-        &nbsp;
-      </td>
-    </tr>
 
-    <tr>
-      <td width="238" height="42" colspan="5">
-        <img src="http://localhost:5000/images/email/bus.jpg" width="238" height="42" alt="">
-      </td>
-      <td width="169" height="42" style="background-color:#f0f2b5;">
-        <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 22px; color:#037e90; padding-top:8px;">
-            
-          <%= 
-          prev_checkin = @user.checkins[i-1]
-          number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2) %>
-          <span style="font-size:12px;">km</span>
-        </p>
-      </td>
-      <td width="90" height="42" style="background-color:#027d90;">
-        <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 20px; color:#FFF; font-weight:normal; text-align:center; padding-top:8px;">
-          12kg
-        </p>
-      </td>
-    </tr>
+<tr>
+  <td width="35" height="164" rowspan="4">
+    &nbsp;
+  </td>
+  <td width="407" height="25" colspan="6" style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; padding-left:18px; color:#037e90; letter-spacing:2px;">
+    <p>
+      <%= checkin.timestamp %>
+      <!-- MON 3RD DEC -->
+    </p>
+  </td>
+  <td width="90" height="25">
+    <img src="http://localhost:5000/images/email/hex-top.jpg" width="90" height="25" alt="">
+  </td>
+  <td width="68" height="164" colspan="2" rowspan="4">
+    &nbsp;
+  </td>
+</tr>
+<tr>
+  <td width="238" height="42" colspan="5">
+    <img src="http://localhost:5000/images/email/bus.jpg" width="238" height="42" alt="">
+  </td>
+  <td width="169" height="42" style="background-color:#f0f2b5;">
+    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 22px; color:#037e90; padding-top:8px;">
+      <span style="font-size:12px;">
+        <%= 
+        prev_checkin = @user.checkins[i-1]
+        number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2)
+        %>
+        km
+        </span>
+    </p>
+  </td>
+  <td width="90" height="42" style="background-color:#027d90;">
+    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 20px; color:#FFF; font-weight:normal; text-align:center; padding-top:8px;">
 
-    <tr>
-      <td width="51" height="76" style="background-color:#f0f2b5;">
-        <img align="right" src="http://localhost:5000/images/email/museum.png" width="32" height="32" alt="">
-      </td>
-      <td width="126" height="76" style="background-color:#f0f2b5;">
-        <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:6px;">
-          <%=
-            prev_checkin.venue_name      
-          %>  
-          <!-- Starting place with a long name -->
-        </p>
-      </td>
-      <td width="51" height="76" colspan="2" style="background-color:#f0f2b5;">
-        <img align="right" src="http://localhost:5000/images/email/bowling.png" width="32" height="32" alt="">
-      </td>
-      <td width="179" height="76" colspan="2" style="background-color:#f0f2b5;">
-        <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:12px;">
-          <%= checkin.venue_name %>
-          <!-- Destination with a really long name -->
-        </p>
-      </td>
-      <td width="90" height="76">
-        <img src="http://localhost:5000/images/email/hex-bottom-line.jpg" width="90" height="76" alt="">
-      </td>
-    </tr>
+      12kg
+    </p>
+  </td>
+</tr>
+<tr>
+  <td width="51" height="76" style="background-color:#f0f2b5;">
+    <img align="right" src="http://localhost:5000/images/email/museum.png" width="32" height="32" alt="">
+  </td>
+  <td width="126" height="76" style="background-color:#f0f2b5;">
+    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:6px;">
+<%= prev_checkin.venue_name %> 
+
+    </p>
+  </td>
+  <td width="51" height="76" colspan="2" style="background-color:#f0f2b5;">
+    <img align="right" src="http://localhost:5000/images/email/bowling.png" width="32" height="32" alt="">
+  </td>
+  <td width="179" height="76" colspan="2" style="background-color:#f0f2b5;">
+    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:12px;">
+<%= checkin.venue_name %>
+
+    </p>
+  </td>
+  <td width="90" height="76">
+    <img src="http://localhost:5000/images/email/hex-bottom-line.jpg" width="90" height="76" alt="">
+  </td>
+</tr>
+<tr>
+  <td width="497" height="21" colspan="7">
+    <img src="http://localhost:5000/images/email/division-bottom-line.jpg" width="497" height="21" alt="">
+  </td>
+</tr>
+<tr>
+
 
  <!-- = End row for a day = -->
 
