@@ -44,6 +44,8 @@ group :development, :test do
 end
 
 group :test do
+  gem 'timecop'
+  gem 'rspec', '~> 2.6.0'
   gem 'rspec', '~> 2.6.0'
   gem 'rspec-rails'
   gem 'shoulda', '~> 2.11.3'
