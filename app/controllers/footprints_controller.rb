@@ -35,7 +35,8 @@ class FootprintsController < ApplicationController
 
       # using delay makes this act as a delayed job
       # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
-      FootprintMailer.delay.footprint_email(u)
+
+      FootprintMailer.delay.footprint_email(u, current_user.checkins, request.host_with_port)
       
       redirect_to footprints_thanks_url
   end
