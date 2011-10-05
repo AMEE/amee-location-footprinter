@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://foursquare.com:443/oauth2/access_token?client_id=JFBVPIBISQD5B5VLQHP0E2OCEUR44RLWXM0HFPZQHZ51XGYU&client_secret=O4MFRB3TD33JVJXIL31Y5WY05F5TH2U3OMY540DB5X21BEOB&code=foursquare_code_string&grant_type=authorization_code&redirect_uri=http://localhost:5000/user/callback
+    uri: https://foursquare.com:443/oauth2/access_token?client_id=JFBVPIBISQD5B5VLQHP0E2OCEUR44RLWXM0HFPZQHZ51XGYU&client_secret=O4MFRB3TD33JVJXIL31Y5WY05F5TH2U3OMY540DB5X21BEOB&code=foursquare_code_string&grant_type=authorization_code&redirect_uri=http://co4squared.dev/user/callback
     body: 
     headers: 
   response: !ruby/struct:VCR::Response 
@@ -11,7 +11,7 @@
       message: Bad Request
     headers: 
       expires: 
-      - Sat, 24 Sep 2011 21:56:10 UTC
+      - Wed, 5 Oct 2011 10:51:06 UTC
       connection: 
       - keep-alive
       content-type: 
@@ -19,7 +19,7 @@
       server: 
       - nginx/0.8.52
       date: 
-      - Sat, 24 Sep 2011 21:56:10 GMT
+      - Wed, 05 Oct 2011 10:51:06 GMT
       content-length: 
       - "25"
       cache-control: 

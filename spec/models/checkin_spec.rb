@@ -27,13 +27,13 @@ describe Checkin do
   end
 
   it "should have a timestamp " do
-    @checkin = FactoryGirl.build(:checkin, :timezone => "")
+    @checkin = FactoryGirl.build(:checkin, :timestamp => "")
     @checkin.save
     @checkin.should_not be_valid
   end
 
   it "should have a timezone from foursqure" do
-    @checkin = FactoryGirl.build(:checkin, :timestamp => "")
+    @checkin = FactoryGirl.build(:checkin, :timezone => "")
     @checkin.save
     @checkin.should_not be_valid
   end

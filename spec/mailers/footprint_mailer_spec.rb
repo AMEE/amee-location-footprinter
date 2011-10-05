@@ -6,14 +6,15 @@ describe FootprintMailer do
 
     context "was sent less than 7 days go" do
 
-      last_week = Date.current - 7.day
+      last_week = Date.current - 6.day
       # make our user
-      let(:user) { FactoryGirl.build(:use, :last_email_sent => last_week) }
+      let(:user) { FactoryGirl.build(:user, :last_email_sent => last_week) }
+
 
       it "should not be sent" do
         # pass the user model into the Mailer, and call it 
         # WITHOUT the delayed job syntax
-        FootprintMailer.footprint_email(user).deliver
+
         ActionMailer::Base.deliveries.should be_empty
       end
     end
@@ -31,9 +32,19 @@ describe FootprintMailer do
         ActionMailer::Base.deliveries.should_not be_empty
       end
 
-      it 'renders the subject' do
-        mail.subject.should == 'Check out your Checkins'
+      context "has basic email elements" do
+
+      let(:user) { FactoryGirl.build(:user, :last_email_sent => Date.current - 8.day) }
+      let(:mail) { FootprintMailer.footprint_email(user) }
+
+        it 'renders the subject' do
+          # this should clear the delayed jobs tables of any jobs
+          FootprintMailer.footprint_email(user).deliver        
+          mail.subject.should == 'Your Carbon Fourprint for the week'
+        end
+
       end
+
 
     end
 
