@@ -1,0 +1,82 @@
+
+/* ===================== */
+/* = Background Styles = */
+/* ===================== */
+
+/* Shocking hack, to remove the ugly horizontal scrollbar on the background */
+html {
+  overflow-x: hidden;
+}
+
+/* Add backgrounds used everywhere in the app */
+div#bg_texture {
+  background: url(/images/bg.jpg);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-position:0px -105px;
+}
+
+#pile_o_blocks {
+  background-image: url(/images/pile_o_hexagons.png);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-position: -150px 320px;
+  background-repeat: no-repeat;
+}
+
+#amee_logo {
+  text-indent: -9999px;
+  background: url('/images/amee-logo.png') no-repeat scroll top left;
+  width: 236px;
+  height: 82px;
+  display:block;
+  margin-bottom:60px;
+}
+
+#welcome_to_co4squared{
+/* margin-top:2px; */
+}
+
+
+/* ================== */
+/* = Text overrides = */
+/* ================== */
+
+h1,h2,h3, h4, p{
+ color: #0072B1;
+}
+
+h3{
+  font-size:  16px;
+  line-height: 1.5;
+}
+
+p{
+  margin-top:18px;
+}
+
+div.container{
+  margin-top:32px;
+}
+
+/* Styling connect via link*/
+
+a.connect{
+  margin: 5px 3px 5px 0;
+  padding-left: 30px;
+  padding-top:  15px;
+  padding-bottom: 5px;
+  text-shadow: 0 1px 1px white;
+  line-height: 30px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  background: #0072b1;
+  width:  215px;
+  display:  block;
+  position: relative;
+  left: 65px;
+  top: 35px;
+}

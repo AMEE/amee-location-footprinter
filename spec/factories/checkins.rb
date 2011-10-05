@@ -5,9 +5,10 @@ FactoryGirl.define do
   factory :checkin do
       lat "51.5373602354157"
       lon "-0.0614011287689209"
-      timestamp "1306396092"
+      timestamp DateTime.now
       foursquare_id "4dde05bc1f6e0369473a10fa"
       timezone "Europe/London"
       venue_name "Off Broadway"
+      icon  ""
     end
 end

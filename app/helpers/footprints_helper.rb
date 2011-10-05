@@ -10,7 +10,6 @@ module FootprintsHelper
 
   # Looks at the distance passed in, and makes the relevant call
   # to the AMEE abstraction layer.
-  # 
+  #
   # @param [Float] Distance of the journey we're trying to measure for
-
 end

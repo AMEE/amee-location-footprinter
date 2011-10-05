@@ -26,7 +26,8 @@ Here's a list of your most recent checkins:
     # we only want to compare when we have two checkins, which both have latlng attributes
     if i > 1
       prev_checkin = @user_checkins[i-1]
-      number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2)
+
+      number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2)      
     end
     %></td>
     <td>
@@ -39,7 +40,7 @@ Here's a list of your most recent checkins:
       if i > 1
         Checkin.co2_for_km(Checkin.distance_between_points(checkin, prev_checkin).to_km)
       end
-      %>
+      %> 
     </td>
   </tr>
 

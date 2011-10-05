@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cico2</title>
+  <title>CO4Squared</title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
 
-<%= yield %>
+<div id="bg_texture">
+<div id="pile_o_blocks"></div>
+
+  <div class="container">
+
+  <%= yield %>
+
+  </div>
+
+</div>
 
 </body>
 </html>

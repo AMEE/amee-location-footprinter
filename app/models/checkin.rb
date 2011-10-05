@@ -1,7 +1,7 @@
 class Checkin < ActiveRecord::Base
     belongs_to :user
   
-    validates :lat, :lon, :foursquare_id, :timestamp, :venue_name, :presence => true
+    validates :lat, :lon, :foursquare_id, :timestamp, :venue_name, :timezone, :presence => true
 
     def self.distance_between_points(checkin1, checkin2)
 
@@ -13,7 +13,7 @@ class Checkin < ActiveRecord::Base
       circumference_of_earth = 40075 # to the nearest km
       case distance
       when 0..1
-        # AMEE always returns '0' for walking, so we can return
+        # AMEE always returns '0' for walking, so we can return 
         Checkin.carbon_for('walking', distance)
       when 1..200
         Checkin.carbon_for('car', distance)
@@ -38,7 +38,7 @@ class Checkin < ActiveRecord::Base
 
       c = calculation_prototype.begin_calculation
 
-      c.choose(
+      c.choose( 
       :amount => distance,
       :name => rand(10e6)
       )
@@ -46,10 +46,7 @@ class Checkin < ActiveRecord::Base
       # add calculate and save here
       c[:co2e].value
     end
-     
+
 end
 
-#
 class DistanceError < Exception ;end
-
-# class Error < StandardError ; end

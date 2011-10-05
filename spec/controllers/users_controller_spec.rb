@@ -11,7 +11,9 @@ describe UsersController do
 
   describe "GET 'callback'" do
     # this would normally mock the request for us to test the response, but:
+
     # 1) the stored result here is actually an error
+
     # 2) So much of these interactions are wrapped by quimby anyway,
     #   that I'm not sure of the value in testing the full back and 
     #   for between quimby and foursquare here, when all we care about is

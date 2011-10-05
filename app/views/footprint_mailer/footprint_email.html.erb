@@ -1,48 +1,197 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <title>AMEE weekly summary</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <style type="text/css">
+  body {
+  	background-color: #F7F7D3;
+  }
+  </style>
 </head>
-<body>
-<h1>Hi <%= @user.name %></h1>
 
-Here's a list of your most recent checkins:
 
-<table border="0" cellspacing="5" cellpadding="5">
-  <tr><th>Name</th><th>Time</th><th>Latitude</th><th>Longitude</th><th>Distance</th>CO2</th></tr>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
-  <% @user.checkins.each_with_index do |checkin, i | %>
+<div align="center">
 
-  <tr>
-    <td><%= checkin.venue_name %></td>
-    <td><%= checkin.timestamp %> </td>
-    <td><%= checkin.lat %></td>
-    <td><%= checkin.lon %></td>
-    <td><%=
-    # we only want to compare when we have two checkins, which both have latlng attributes
-    if i > 1
-      prev_checkin = @user.checkins[i-1]
-      number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2)
-    end
-    %></td>
-    <td>
-      <%
-      if i > 1
-        @total_co2 += Checkin.co2_for_km(Checkin.distance_between_points(checkin, prev_checkin).to_km)
-      end
-      %>
-      <%=
-      if i > 1
-        Checkin.co2_for_km(Checkin.distance_between_points(checkin, prev_checkin).to_km)
-      end
-      %>
+  <table id="Table_01" width="600" border="0" cellpadding="0" cellspacing="0" style="background-color:#fdfdf6;">
+    <tr>
+      <td width="246" height="144" colspan="4" rowspan="3">
+        <img src="http://<%= @url %>/images/email/logo.jpg" width="246" height="144" alt="">
+      </td>
+      <td width="196" height="144" colspan="3" rowspan="3">
+        <img src="http://<%= @url %>/images/email/footprint.jpg" width="196" height="144" alt="">
+      </td>
+      <td width="91" height="69" colspan="2">
+        <img src="http://<%= @url %>/images/email/total-top.jpg" width="91" height="69" alt="">
+      </td>
+      <td width="67" height="144" rowspan="3">
+        <img src="http://<%= @url %>/images/email/index_04.jpg" width="67" height="144" alt="">
+      </td>
+    </tr>
+    <tr>
+      <td height="47" colspan="2" style="background-color:#cdd40a;">
+        <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 20px; color:#FFF; font-weight:normal; text-align:center; padding-top:8px;">
+          2,000kg
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td height="18" colspan="2">
+        <img src="http://<%= @url %>/images/email/total-bottom.jpg" width="91" height="28" alt="">
     </td>
-  </tr>
+    </tr>
 
-  <% end %>
+    <tr>
+      <td width="600" height="50" colspan="10">
+        <table width="600" height="81" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="433" height="77" style="background-color:#FFF;">
+              <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; color:#037e90; padding-left:36px;line-height:1.5;">
+                <span style="font-size:16px;">Hi Chris!</span><br>
+                Hope you had a good week travelling round. Here's your weekly emissions breakdown from <strong>CO4.</strong>
+              </p>
+            </td>
+            <td width="157">
+              <img src="http://<%= @url %>/images/email/spacer-under-total.jpg" width="157" height="100" alt="">
+            </td>
+          </tr>
+        </table><img src="http://<%= @url %>/images/email/index_05.jpg" width="600" height="26" alt="">
+      </td>
+    </tr>
+
+  <% @user.checkins.each_with_index do |checkin, i | 
+    
+    next if i <= 1 
+    
+  %>
+
+<!-- = Begin Row for a day  = -->
+
+<tr>
+  <td width="35" height="164" rowspan="4">
+    &nbsp;
+  </td>
+  <td width="407" height="25" colspan="6" style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; padding-left:18px; color:#037e90; letter-spacing:2px;">
+    <p>
+      <%= checkin.timestamp.to_date %>
+
+      <!-- MON 3RD DEC -->
+    </p>
+  </td>
+  <td width="90" height="25">
+    <img src="http://<%= @url %>/images/email/hex-top.jpg" width="90" height="25" alt="">
+  </td>
+  <td width="68" height="164" colspan="2" rowspan="4">
+    &nbsp;
+  </td>
+</tr>
+<tr>
+  <td width="238" height="42" colspan="5">
+    <img src="http://<%= @url %>/images/email/bus.jpg" width="238" height="42" alt="">
+  </td>
+  <td width="169" height="42" style="background-color:#f0f2b5;">
+    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 22px; color:#037e90; padding-top:8px;">
+      <span style="font-size:12px;">
+        <%= 
+        prev_checkin = @user.checkins[i-1]
+        number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2)
+        %>
+        km
+        </span>
+    </p>
+  </td>
+  <td width="90" height="42" style="background-color:#027d90;">
+    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 20px; color:#FFF; font-weight:normal; text-align:center; padding-top:8px;">
+
+      12kg
+    </p>
+  </td>
+</tr>
+<tr>
+  <td width="51" height="76" style="background-color:#f0f2b5;">
+    <img align="right" src="http://<%= @url %>/images/email/museum.png" width="32" height="32" alt="">
+  </td>
+  <td width="126" height="76" style="background-color:#f0f2b5;">
+    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:6px;">
+<%= prev_checkin.venue_name %> 
+
+    </p>
+  </td>
+  <td width="51" height="76" colspan="2" style="background-color:#f0f2b5;">
+    <img align="right" src="http://<%= @url %>/images/email/bowling.png" width="32" height="32" alt="">
+  </td>
+  <td width="179" height="76" colspan="2" style="background-color:#f0f2b5;">
+    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:12px;">
+<%= checkin.venue_name %>
+
+    </p>
+  </td>
+  <td width="90" height="76">
+    <img src="http://<%= @url %>/images/email/hex-bottom-line.jpg" width="90" height="76" alt="">
+  </td>
+</tr>
+<tr>
+  <td width="497" height="21" colspan="7">
+    <img src="http://<%= @url %>/images/email/division-bottom-line.jpg" width="497" height="21" alt="">
+  </td>
+</tr>
+<tr>
+
+
+ <!-- = End row for a day = -->
+
+<% end %>
+<!-- = Begin second activity in a given day = -->
+
+
+<!-- = End second activity in a given day  = -->
+
+
+
+
+ <tr>
+   <td width="600" height="580" colspan="10">
+     <img src="http://<%= @url %>/images/email/footer.jpg" width="600" height="615" alt="">
+   </td>
+ </tr>
+ <tr>
+   <td width="35" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="35" height="1" alt="">
+   </td>
+   <td width="51" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="51" height="1" alt="">
+   </td>
+   <td width="126" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="126" height="1" alt="">
+   </td>
+   <td width="34" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="34" height="1" alt="">
+   </td>
+   <td width="17" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="17" height="1" alt="">
+   </td>
+   <td width="10" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="10" height="1" alt="">
+   </td>
+   <td width="169" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="169" height="1" alt="">
+   </td>
+   <td width="90" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="90" height="1" alt="">
+   </td>
+   <td width="1" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="1" height="1" alt="">
+   </td>
+   <td width="67" height="1">
+     <img src="http://<%= @url %>/images/email/spacer.gif" width="67" height="1" alt="">
+   </td>
+ </tr>
+
+
+
+
 </table>
-
-<h3>Total CO2 for all this bar hopping is <%= number_with_precision(@total_co2, :precision => 2) %> kilograms of CO2</h3>
-
+</div>
 </body>
 </html

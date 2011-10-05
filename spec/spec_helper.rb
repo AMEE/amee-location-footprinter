@@ -14,6 +14,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 VCR.config do |c|
   c.cassette_library_dir = 'spec/vcr_cassettes'
   c.stub_with :webmock
+  c.default_cassette_options = { :record => :new_episodes }
 end
 
 RSpec.configure do |config|
@@ -34,4 +35,6 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
   config.extend VCR::RSpec::Macros
+  
+  config.include Factory::Syntax::Methods
 end

@@ -10,7 +10,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110928141055) do
+
+ActiveRecord::Schema.define(:version => 20111005101028) do
 
   create_table "calculations", :force => true do |t|
     t.string   "profile_uid"
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20110928141055) do
     t.datetime "updated_at"
     t.string   "venue_name"
     t.integer  "user_id"
+    t.string   "icon"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -49,6 +51,16 @@ ActiveRecord::Schema.define(:version => 20110928141055) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "legs", :force => true do |t|
+    t.string   "distance"
+    t.string   "co2"
+    t.string   "name"
+    t.string   "start_checkin"
+    t.string   "end_checkin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "terms", :force => true do |t|
     t.integer  "calculation_id"
@@ -71,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20110928141055) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "foursquare_id"
+    t.datetime "last_email_sent"
   end
 
 end

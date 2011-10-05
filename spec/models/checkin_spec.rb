@@ -27,13 +27,13 @@ describe Checkin do
   end
 
   it "should have a timestamp " do
-    @checkin = FactoryGirl.build(:checkin, :timezone => "")
+    @checkin = FactoryGirl.build(:checkin, :timestamp => "")
     @checkin.save
     @checkin.should_not be_valid
   end
 
   it "should have a timezone from foursqure" do
-    @checkin = FactoryGirl.build(:checkin, :timestamp => "")
+    @checkin = FactoryGirl.build(:checkin, :timezone => "")
     @checkin.save
     @checkin.should_not be_valid
   end
@@ -53,7 +53,7 @@ describe Checkin do
 
     # create two checkins using the factories
     checkin1 = FactoryGirl.build(:checkin, :lat => "51.514667", :lon => "-0.136047") # Off Broadway Bar, London
-    checkin2 = FactoryGirl.build(:checkin, :lat => "51.502557", :lon => "-0.07253941") # The Marksman Pub, London
+    checkin2 = FactoryGirl.build(:checkin, :lat => "51.502557", :lon => "-0.07253941") # The Marksman Pub, London  
 
     # fetch the distance
     distance = Checkin.distance_between_points(checkin1, checkin2)
@@ -88,7 +88,7 @@ describe Checkin do
     Checkin.co2_for_km(distance).should eq 98
 
   end
-
+  
   it "should calculate distances upto 1km based on CO2 based on CO2 for short_haul flights" do
 
     distance = 2000
@@ -108,7 +108,7 @@ describe Checkin do
   it "should calculate distances of more than 3000km based on CO2 from long haul flights" do
 
     # fetch the distance
-    distance = 4000
+    distance = 4000    
     flexmock('Checkin').should_receive(:carbon_for).with(:long_haul_flight, distance)
 
     flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
@@ -126,7 +126,6 @@ describe Checkin do
 
     distance = 40100
     flexmock('Checkin').should_receive(:carbon_for).with(:long_haul_flight, distance)
-
     flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
       mock.should_receive(:choose).and_return(nil)
       mock.should_receive(:calculate!).and_return(nil)
@@ -137,7 +136,6 @@ describe Checkin do
     # https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers/raise-error-matcher
     expect { Checkin.co2_for_km(distance) }.to raise_error
     expect { Checkin.co2_for_km(distance) }.to raise_error(DistanceError)
-
   end
 
 end
