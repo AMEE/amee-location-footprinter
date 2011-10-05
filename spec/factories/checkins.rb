@@ -9,5 +9,6 @@ FactoryGirl.define do
       foursquare_id "4dde05bc1f6e0369473a10fa"
       timezone "Europe/London"
       venue_name "Off Broadway"
+      icon  ""
     end
 end
