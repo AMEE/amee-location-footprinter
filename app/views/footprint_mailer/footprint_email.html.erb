@@ -32,7 +32,7 @@
     <tr>
       <td height="47" colspan="2" style="background-color:#cdd40a;">
         <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 20px; color:#FFF; font-weight:normal; text-align:center; padding-top:8px;">
-          2,000kg
+          <%= number_with_precision( @total_co2, :precision => 2 ) %>kg
         </p>
       </td>
     </tr>
@@ -60,11 +60,7 @@
       </td>
     </tr>
 
-  <% @user.checkins.each_with_index do |checkin, i | 
-    
-    next if i <= 1 
-    
-  %>
+  <% @legs.each_with_index do |leg, i |  %>
 
 <!-- = Begin Row for a day  = -->
 
@@ -74,7 +70,7 @@
   </td>
   <td width="407" height="25" colspan="6" style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; padding-left:18px; color:#037e90; letter-spacing:2px;">
     <p>
-      <%= checkin.timestamp.to_date %>
+      <%#= leg.timestamp.to_date %>
 
       <!-- MON 3RD DEC -->
     </p>
@@ -93,18 +89,14 @@
   <td width="169" height="42" style="background-color:#f0f2b5;">
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 22px; color:#037e90; padding-top:8px;">
       <span style="font-size:12px;">
-        <%= 
-        prev_checkin = @user.checkins[i-1]
-        number_with_precision(Checkin.distance_between_points(checkin, prev_checkin).to_km, :precision => 2)
-        %>
-        km
+        <%= number_with_precision(leg.distance, :precision => 2) %> km
         </span>
     </p>
   </td>
   <td width="90" height="42" style="background-color:#027d90;">
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 20px; color:#FFF; font-weight:normal; text-align:center; padding-top:8px;">
 
-      12kg
+    <%= number_with_precision(leg.co2, :precision => 2) %>
     </p>
   </td>
 </tr>
@@ -114,7 +106,7 @@
   </td>
   <td width="126" height="76" style="background-color:#f0f2b5;">
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:6px;">
-<%= prev_checkin.venue_name %> 
+<%= venue_name = Checkin.find(leg.start_checkin).venue_name %> 
 
     </p>
   </td>
@@ -123,7 +115,7 @@
   </td>
   <td width="179" height="76" colspan="2" style="background-color:#f0f2b5;">
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:12px;">
-<%= checkin.venue_name %>
+<%= end_venue_name = Checkin.find(leg.end_checkin).venue_name %>
 
     </p>
   </td>

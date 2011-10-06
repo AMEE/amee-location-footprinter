@@ -198,5 +198,3 @@ calculation{
  } 
   
 }
-
-GOOGLE_MAPS_API_KEY = "ABQIAAAAEdYs37SWtm7Nsv8jtIsyeRT2yXp_ZAY8_ufC3CFXhHIE1NvwkxRYd7x0-XeqfM6DkGfpcMJXwHfOzw"
