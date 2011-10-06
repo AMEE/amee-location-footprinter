@@ -30,7 +30,7 @@ describe User do
     Timecop.freeze(Date.current)
 
     # send an email
-    FootprintMailer.footprint_email(@user)
+    FootprintMailer.footprint_email(@user, @user.legs)
 
     # we should have the new time as the frozen value, because time works 
     # like a global in Ruby

@@ -25,7 +25,7 @@ describe FootprintMailer do
 
       it "should be sent" do
         # this should clear the delayed jobs tables of any jobs
-        FootprintMailer.footprint_email(user).deliver
+        FootprintMailer.footprint_email(user, user.legs).deliver
         # puts Delayed::Job.count
         # dj = Delayed::Worker.new.work_off
         # so we can then check that an email has been sent
@@ -35,11 +35,11 @@ describe FootprintMailer do
       context "has basic email elements" do
 
       let(:user) { FactoryGirl.build(:user, :last_email_sent => Date.current - 8.day) }
-      let(:mail) { FootprintMailer.footprint_email(user) }
+      let(:mail) { FootprintMailer.footprint_email(user, user.legs) }
 
         it 'renders the subject' do
           # this should clear the delayed jobs tables of any jobs
-          FootprintMailer.footprint_email(user).deliver        
+          FootprintMailer.footprint_email(user, user.legs).deliver        
           mail.subject.should == 'Your Carbon Fourprint for the week'
         end
 
