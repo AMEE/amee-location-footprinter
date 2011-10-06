@@ -6,11 +6,11 @@ class FootprintMailer < ActionMailer::Base
     @legs = legs
     @total_co2 = 0
     # total up the co2 for email
-    @legs.each { |leg| @total_co2 += leg.co2.to_f }   
+    @legs.each { |leg| @total_co2 += leg.co2.to_f }
     @url = application_url
     
-    # binding.pry
-    
+    binding.pry
+
     # if ( @user.last_email_sent < Date.current.ago(7) )
       send_email_and_update_last_sent(@user)
     # end

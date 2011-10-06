@@ -34,12 +34,16 @@ class FootprintsController < ApplicationController
             # we need to be at least in the second iteration of the loop
             # fetch our prev_checkin object
             if index > 0
+              # make a compound index
+              prev_checkin = Checkin.find_by_foursquare_id(current_user.checkins[index-1].id)
+              current_checkin = Checkin.find_by_foursquare_id(current_user.checkins[index].id)
 
-              l = u.legs.find_or_create_by_id()
+              # binding.pry
+              l = u.legs.find_or_create_by_start_checkin_and_end_checkin(prev_checkin, current_checkin)
+
+              # binding.pry
 
               if l.new_record?
-                prev_checkin = Checkin.find_by_foursquare_id(current_user.checkins[index-1].id)
-                current_checkin = Checkin.find_by_foursquare_id(current_user.checkins[index].id)
                 distance = Checkin.distance_between_points(current_checkin, prev_checkin).to_km
 
                 l.update_attributes!({
@@ -47,26 +51,26 @@ class FootprintsController < ApplicationController
                   :co2 => Checkin.co2_for_km(distance),
                   :timestamp => current_checkin.timestamp,
                   :timezone => current_checkin.timezone,
-                  :start_checkin => prev_checkin,
-                  :end_checkin => current_checkin
-                  })
-                end
+              })
+
+              # binding.pry
+                l.save!
+#
+              # binding.pry
+              end
 
               end
             end
-
           end
 
-
-
-          @user_checkins = u.checkins
-
           # TODO turn to named scope - return list of checkins from the last 7 days
-          @legs = Leg.where("timestamp > ?", Date.current - 7.day )
+          @legs = Leg.where("timestamp > ?", Date.current-7.day )
+
+          # binding.pry
 
           # using delay makes this act as a delayed job
           # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
-          FootprintMailer.delay.footprint_email(u, current_user.checkins, request.host_with_port)
+          FootprintMailer.delay.footprint_email(u, @legs, request.host_with_port)
 
           redirect_to footprints_thanks_url
         end
