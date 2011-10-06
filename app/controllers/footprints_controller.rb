@@ -38,7 +38,6 @@ class FootprintsController < ApplicationController
               l = u.legs.find_or_create_by_id()
 
               if l.new_record?
-
                 prev_checkin = Checkin.find_by_foursquare_id(current_user.checkins[index-1].id)
                 current_checkin = Checkin.find_by_foursquare_id(current_user.checkins[index].id)
                 distance = Checkin.distance_between_points(current_checkin, prev_checkin).to_km
