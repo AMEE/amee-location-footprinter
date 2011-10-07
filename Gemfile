@@ -1,8 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.10'
-
-# gem 'mysql'
+gem 'pg'
 
 # handy foursquare library
 gem 'quimby'

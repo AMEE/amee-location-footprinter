@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111007102708) do
+ActiveRecord::Schema.define(:version => 20111007135450) do
 
   create_table "calculations", :force => true do |t|
     t.string   "profile_uid"
@@ -56,13 +56,13 @@ ActiveRecord::Schema.define(:version => 20111007102708) do
     t.string   "distance"
     t.string   "co2"
     t.string   "name"
-    t.integer  "start_checkin"
-    t.integer  "end_checkin"
+    t.string   "end_checkin_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.datetime "timestamp"
     t.string   "timezone"
+    t.integer  "start_checkin_id"
   end
 
   create_table "terms", :force => true do |t|
