@@ -38,10 +38,7 @@ class FootprintsController < ApplicationController
               prev_checkin = Checkin.find_by_foursquare_id(current_user.checkins[index-1].id)
               current_checkin = Checkin.find_by_foursquare_id(current_user.checkins[index].id)
 
-              # binding.pry
               l = u.legs.find_or_create_by_start_checkin_and_end_checkin(prev_checkin, current_checkin)
-
-              # binding.pry
 
               if l.new_record?
                 distance = Checkin.distance_between_points(current_checkin, prev_checkin).to_km
@@ -53,10 +50,8 @@ class FootprintsController < ApplicationController
                   :timezone => current_checkin.timezone,
               })
 
-              # binding.pry
-                l.save!
-#
-              # binding.pry
+              l.save!
+
               end
 
               end
@@ -66,7 +61,7 @@ class FootprintsController < ApplicationController
           # TODO turn to named scope - return list of checkins from the last 7 days
           @legs = Leg.where("timestamp > ?", Date.current-7.day )
 
-          # binding.pry
+
 
           # using delay makes this act as a delayed job
           # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
