@@ -9,12 +9,11 @@ class FootprintMailer < ActionMailer::Base
     @legs.each { |leg| @total_co2 += leg.co2.to_f }
     @url = application_url
     
-    binding.pry
-
-    # if ( @user.last_email_sent < Date.current.ago(7) )
-      send_email_and_update_last_sent(@user)
-    # end
     # check the time and only send the last email was sent more than a week ago
+    if ( @user.last_email_sent < Date.current.ago(7) )
+      send_email_and_update_last_sent(@user)
+    end
+
 
   end
 
