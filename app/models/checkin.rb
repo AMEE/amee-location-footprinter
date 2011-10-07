@@ -1,5 +1,4 @@
 class Checkin < ActiveRecord::Base
-    belongs_to :leg
     belongs_to :user
 
     validates :lat, :lon, :foursquare_id, :timestamp, :venue_name, :timezone, :presence => true

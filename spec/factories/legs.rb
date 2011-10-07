@@ -5,7 +5,7 @@ FactoryGirl.define do
       distance "8.12"
       co2 "1.54"
       name "optional named journey"
-      start_checkin "4e8b71d5d3e303e9db27e45f"
-      end_checkin "4e86100c30f873b8fa4f3b83"
+      start_checkin_id "4e8b71d5d3e303e9db27e45f"
+      end_checkin_id "4e86100c30f873b8fa4f3b83"
     end
 end

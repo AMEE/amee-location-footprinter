@@ -39,7 +39,8 @@ describe FootprintMailer do
 
         it 'renders the subject' do
           # this should clear the delayed jobs tables of any jobs
-          FootprintMailer.footprint_email(user, user.legs).deliver        
+
+          mail.deliver        
           mail.subject.should == 'Your Carbon Fourprint for the week'
         end
 
