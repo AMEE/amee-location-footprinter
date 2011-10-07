@@ -59,7 +59,7 @@ class FootprintsController < ApplicationController
           end
 
           # TODO turn to named scope - return list of checkins from the last 7 days
-          @legs = Leg.where("timestamp > ?", Date.current-7.day )
+          @legs = u.legs.where("timestamp > ?", Date.current-7.day )
 
 
 
