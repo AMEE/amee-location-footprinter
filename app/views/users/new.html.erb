@@ -3,7 +3,7 @@
 <div class="span7">
 
   <div id="amee_logo">
-    <h1><%= image_tag('amee-logo.png', :alt => "AMEE - Environmental Intelligence Everywhere") %></h1>
+    <h1><%= image_tag('fourprint-small-p.png', :alt => "Welcome to AMEE Fourprint") %></h1>
   </div>
 
   <h3>FourPrint is a fun, free and easy-to-use way to estimate the amount of carbon your everyday journeys emits.</h3>
@@ -12,14 +12,12 @@
 
   <p>We all know that we should be taking steps to lower our carbon footprint, so every week you'll also get a personalised email summary of all your journeys, and the total amount of carbon emitted. Hopefully it'll surprise you how much a change of transport can help to lower the CO2 you're responsible for.</p>
 
-  <p>FourPrint is powered by AMEE, a company dedicated to finding lasting solutions for the world's environmental problems. Check out <%= link_to "www.amee.com", "http://www.amee.com" %> for more details</p>
+<%= link_to image_tag('poweredbyamee-icon.png', :alt => "AMEE - Environmental Intelligence Everywhere"), "http://www.amee.com", :title => "FourPrint is powered by AMEE, a company dedicated to finding lasting solutions for the world's environmental problems." %>
 
 </div>
 
 <div class="span4 offset3">
 
-    <h2 id="welcome_to_co4squared"><%= image_tag('welcome-to-co4squared.png') %></h2>
-  
   <%= link_to image_tag('connect.png'), @authorize_url, :class => 'connect  ' %>
   
 </div>

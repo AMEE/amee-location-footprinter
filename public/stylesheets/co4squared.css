@@ -18,27 +18,54 @@ div#bg_texture {
 }
 
 #pile_o_blocks {
-  background-image: url(/images/pile_o_hexagons.png);
+  background-image: url(/images/smaller_pile_o_hexagons.png);
   position: absolute;
   height: 100%;
   width: 100%;
-  background-position: -150px 320px;
+  background-position: right 320px;
   background-repeat: no-repeat;
 }
 
 #amee_logo {
-  text-indent: -9999px;
-  background: url('/images/amee-logo.png') no-repeat scroll top left;
   width: 236px;
   height: 82px;
   display:block;
   margin-bottom:60px;
+  position:relative;
+  left:-5px;
+  top:30px;
 }
 
 #welcome_to_co4squared{
 /* margin-top:2px; */
 }
 
+
+/* ===================== */
+/* = Nav Bar overrides = */
+/* ===================== */
+
+
+.topbar-inner, .topbar .fill {
+  background-color: #222;
+  background-color: #81B7BA;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#008b99), to(#81B7BA));
+  background-image: -moz-linear-gradient(top, #008b99, #81B7BA);
+  background-image: -ms-linear-gradient(top, #008b99, #81B7BA);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #008b99), color-stop(100%, #81B7BA));
+  background-image: -webkit-linear-gradient(top, #008b99, #81B7BA);
+  background-image: -o-linear-gradient(top, #008b99, #81B7BA);
+  background-image: linear-gradient(top, #008b99, #81B7BA);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#008b99', endColorstr='#81B7BA', GradientType=0);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.topbar-inner, .topbar .pull-right{
+  float:right;
+}
 
 /* ================== */
 /* = Text overrides = */
@@ -57,8 +84,8 @@ p{
   margin-top:18px;
 }
 
-div.container{
-  margin-top:32px;
+#bg_texture div.container{
+  margin-top:48px;
 }
 
 /* Styling connect via link*/
@@ -78,5 +105,7 @@ a.connect{
   display:  block;
   position: relative;
   left: 65px;
-  top: 35px;
+  top: 135px;
 }
+
+
