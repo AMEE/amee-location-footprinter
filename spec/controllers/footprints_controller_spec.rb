@@ -6,13 +6,11 @@ describe FootprintsController do
     use_vcr_cassette "fetching_checkins_and_carbon"
 
     before(:each) do
-      # this is a working API token for Chris Adams - YMMV
+      # this is a working API token for Chris Adams - it's passed into vcr,
+      # so it knows what response to provide
+      # for example, 
       session["access_token"] = "GLW4QILQIABBXXTVOIR4FG25YXXPXVEMCF4V2A22GFBGUD2P"
 
-      # mock out calls to quimby
-      flexmock(Foursquare::Base).new_instances do |foursquare|
-        foursquare.should_receive(:find).with(:self)
-      end
 
       # mock out calls to AMEE abstraction layer
       flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
@@ -27,6 +25,7 @@ describe FootprintsController do
 
       get 'user'
 
+      
       User.first should_not be_blank
       first_journey = User.first.legs.first
 
@@ -44,6 +43,8 @@ describe FootprintsController do
 
       # start the mocked out sign in process
       get 'user'
+      User.count.should eq 1
+
       response.should redirect_to footprints_thanks_path
     end
 
