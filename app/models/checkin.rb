@@ -1,6 +1,9 @@
 class Checkin < ActiveRecord::Base
     belongs_to :user
 
+    has_one :outgoing_leg, :foreign_key => "start_checkin_id", :class_name => "Leg"
+    has_one :incoming_leg, :foreign_key => "end_checkin_id", :class_name => "Leg"
+
     validates :lat, :lon, :foursquare_id, :timestamp, :venue_name, :timezone, :presence => true
 
     def self.distance_between_points(checkin1, checkin2)

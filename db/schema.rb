@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20111007135450) do
     t.string   "distance"
     t.string   "co2"
     t.string   "name"
-    t.string   "end_checkin_id"
+    t.integer  "end_checkin_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"

@@ -4,16 +4,15 @@ describe FootprintsController do
 
   describe "GET 'user'" do
     use_vcr_cassette "fetching_checkins_and_carbon"
-    it "should fetch content from foursquare and amee" do
+
+    before(:each) do
       # this is a working API token for Chris Adams - YMMV
       session["access_token"] = "GLW4QILQIABBXXTVOIR4FG25YXXPXVEMCF4V2A22GFBGUD2P"
-
 
       # mock out calls to quimby
       flexmock(Foursquare::Base).new_instances do |foursquare|
         foursquare.should_receive(:find).with(:self)
       end
-
 
       # mock out calls to AMEE abstraction layer
       flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
@@ -22,10 +21,33 @@ describe FootprintsController do
         mock.should_receive(:[]).with(:co2e).and_return(flexmock(:value => 42))
       end
 
+    end
+
+    it "should fetch user details and checkins from foursquare" do
+
+      get 'user'
+
+      User.first should_not be_blank
+      first_journey = User.first.legs.first
+
+      # We should be able to fetch a checkin from the object by calling `end_checkin_id`
+      end_checkin = first_journey.end_checkin
+      start_checkin = first_journey.start_checkin
+
+      # we should get back an object
+      end_checkin.class.should == Checkin
+      start_checkin.class.should == Checkin
+      end_checkin.incoming_leg.should == first_journey
+    end
+
+    it "should forward the user to a thank you page" do
+
+      # start the mocked out sign in process
       get 'user'
       response.should redirect_to footprints_thanks_path
     end
-    
+
+
   end
 
 end
