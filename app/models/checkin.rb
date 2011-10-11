@@ -12,6 +12,27 @@ class Checkin < ActiveRecord::Base
       distance
     end
 
+    def self.transport_method_image(distance)
+      circumference_of_earth = 40075 # to the nearest km
+
+      case distance.to_f
+      when 0..1
+        "walk.jpg"
+      when 1..200
+        "car.jpg"
+      when 200..1000
+        "plane.jpg" # domestic flight
+      when 1000..3000
+        "plane.jpg" # short haul flight
+      when 3000...circumference_of_earth
+        "plane.jpg" # long haul flight
+      else
+        "plane.jpg" # most likely option
+      end
+        
+    end
+
+
     def self.co2_for_km(distance)
       circumference_of_earth = 40075 # to the nearest km
       case distance
@@ -65,7 +86,7 @@ class Checkin < ActiveRecord::Base
            :timezone => checkin.timezone,
            :venue_name => checkin.json['type'] == 'venueless' ? checkin.json['location']['name'] : checkin.venue.name,
            :foursquare_id => checkin.id,
-           :icon => checkin.json['type'] == 'venueless' ? "https://foursquare.com/img/categories/none.png" : checkin.venue.icon
+           :icon => checkin.json['type'] == 'venueless' ? "https://foursquare.com/img/categories/none.png" : checkin.venue.icon 
           })
           c.save!
 

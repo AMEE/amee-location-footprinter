@@ -1,4 +1,4 @@
-<%= render :partial => 'email_header' :locals => { :url => @url, :user => @user, :total_co2 => @total_co2 } %>
+<%= render :partial => 'email_header', :locals => { :url => @url, :user => @user, :total_co2 => @total_co2 } %>
 
   <% @legs.each_with_index do |leg, i |  %>
 
@@ -8,15 +8,16 @@
   <td width="35" height="164" rowspan="4">
     &nbsp;
   </td>
-  <td width="407" height="25" colspan="6" style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; padding-left:18px; color:#037e90; letter-spacing:2px;">
+  <td width="407" height="25" colspan="6" style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 16px; font-weight:bold; padding-left:18px; color:#037e90; letter-spacing:2px;">
     <p>
-      <%#= leg.timestamp.to_date %>
+      <%#= binding.pry %>
+      <%= leg.timestamp.strftime("%d %B, %Y") %>
 
       <!-- MON 3RD DEC -->
     </p>
   </td>
   <td width="90" height="25">
-    <img src="http://<%= @url %>/images/email/hex-top.jpg" width="90" height="25" alt="">
+    <img src="http://<%= @url %>/images/email/hex-top.jpg" width="90" height="25" alt="" style="display: block;">
   </td>
   <td width="68" height="164" colspan="2" rowspan="4">
     &nbsp;
@@ -24,46 +25,47 @@
 </tr>
 <tr>
   <td width="238" height="42" colspan="5">
-    <img src="http://<%= @url %>/images/email/bus.jpg" width="238" height="42" alt="">
+    <img src="http://<%= @url %>/images/email/<%= Checkin.transport_method_image(leg.distance) %>" width="238" height="42" alt="" style="display: block;">
   </td>
   <td width="169" height="42" style="background-color:#f0f2b5;">
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 22px; color:#037e90; padding-top:8px;">
+        <%= number_with_precision(leg.distance, :precision => 2) %> 
       <span style="font-size:12px;">
-        <%= number_with_precision(leg.distance, :precision => 2) %> km
-        </span>
+        km
+      </span>
     </p>
   </td>
   <td width="90" height="42" style="background-color:#027d90;">
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 20px; color:#FFF; font-weight:normal; text-align:center; padding-top:8px;">
 
-    <%= number_with_precision(leg.co2, :precision => 2) %>
+    <%= number_with_precision(leg.co2, :precision => 2) %> kg
     </p>
   </td>
 </tr>
 <tr>
   <td width="51" height="76" style="background-color:#f0f2b5;">
-    <img align="right" src="http://<%= @url %>/images/email/museum.png" width="32" height="32" alt="">
+    <img align="right" src="<%= leg.start_checkin.icon || "https://foursquare.com/img/categories/none.png" %>" width="32" height="32" alt="" style="display: block;">
   </td>
   <td width="126" height="76" style="background-color:#f0f2b5;">
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:6px;">
-<%= Checkin.find(leg.start_checkin).venue_name %>
+<%= leg.start_checkin.venue_name %>
     </p>
   </td>
   <td width="51" height="76" colspan="2" style="background-color:#f0f2b5;">
-    <img align="right" src="http://<%= @url %>/images/email/bowling.png" width="32" height="32" alt="">
+    <img align="right" src="<%= leg.end_checkin.icon || "https://foursquare.com/img/categories/none.png" %>" width="32" height="32" alt="" style="display: block;">
   </td>
   <td width="179" height="76" colspan="2" style="background-color:#f0f2b5;">
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 14px; color:#037e90; padding-left:12px;">
-<%= Checkin.find(leg.end_checkin).venue_name %>
+<%= leg.end_checkin.venue_name %>
     </p>
   </td>
   <td width="90" height="76">
-    <img src="http://<%= @url %>/images/email/hex-bottom-line.jpg" width="90" height="76" alt="">
+    <img src="http://<%= @url %>/images/email/hex-bottom-line.jpg" width="90" height="76" alt="" style="display: block;">
   </td>
 </tr>
 <tr>
   <td width="497" height="21" colspan="7">
-    <img src="http://<%= @url %>/images/email/division-bottom-line.jpg" width="497" height="21" alt="">
+    <img src="http://<%= @url %>/images/email/division-bottom-line.jpg" width="497" height="21" alt="" style="display: block;">
   </td>
 </tr>
 <tr>
@@ -77,7 +79,7 @@
 
 <!-- = End second activity in a given day  = -->
 
-<%= render :partial => 'email_footer' :locals => { :url => @url } %>
+<%= render :partial => 'email_footer', :locals => { :url => @url } %>
 
 
 
