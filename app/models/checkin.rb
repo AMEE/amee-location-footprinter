@@ -117,11 +117,14 @@ class Checkin < ActiveRecord::Base
         end
       end
       # TODO turn to named scope - return list of checkins from the last 7 days
-      @legs = user.legs.where("timestamp > ?", Date.current-107.day )
+      @legs = user.legs.where("timestamp > ?", Date.current - 1.week )
+
+      # 
+      app_url = ENV['APP_URL'] || request.host_with_port 
 
       # using delay makes this act as a delayed job
       # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
-      FootprintMailer.footprint_email(user, @legs, request.host_with_port).deliver!
+      FootprintMailer.footprint_email(user, @legs, app_url).deliver!
 
     end
 
