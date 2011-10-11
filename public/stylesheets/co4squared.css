@@ -48,16 +48,16 @@ div#bg_texture {
 
 .topbar-inner, .topbar .fill {
   background-color: #222;
-  background-color: #81B7BA;
+  background-color: #7db4b4;
   background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#008b99), to(#81B7BA));
-  background-image: -moz-linear-gradient(top, #008b99, #81B7BA);
-  background-image: -ms-linear-gradient(top, #008b99, #81B7BA);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #008b99), color-stop(100%, #81B7BA));
-  background-image: -webkit-linear-gradient(top, #008b99, #81B7BA);
-  background-image: -o-linear-gradient(top, #008b99, #81B7BA);
-  background-image: linear-gradient(top, #008b99, #81B7BA);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#008b99', endColorstr='#81B7BA', GradientType=0);
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#008b99), to(#7db4b4));
+  background-image: -moz-linear-gradient(top, #008b99, #7db4b4);
+  background-image: -ms-linear-gradient(top, #008b99, #7db4b4);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #008b99), color-stop(100%, #7db4b4));
+  background-image: -webkit-linear-gradient(top, #008b99, #7db4b4);
+  background-image: -o-linear-gradient(top, #008b99, #7db4b4);
+  background-image: linear-gradient(top, #008b99, #7db4b4);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#008b99', endColorstr='#7db4b4', GradientType=0);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);

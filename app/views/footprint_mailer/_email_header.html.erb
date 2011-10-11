@@ -1,0 +1,61 @@
+<html>
+<head>
+  <title>AMEE FourPrint weekly summary</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <style type="text/css">
+  body {
+  	background-color: #F7F7D3;
+  }
+  </style>
+</head>
+
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<div align="center">
+
+  <table id="Table_01" width="600" border="0" cellpadding="0" cellspacing="0" style="background-color:#fdfdf6;">
+    <tr>
+      <td width="246" height="144" colspan="4" rowspan="3">
+        <img src="http://<%= url %>/images/email/logo.jpg" width="246" height="144" alt="">
+      </td>
+      <td width="196" height="144" colspan="3" rowspan="3">
+        <img src="http://<%= url %>/images/email/footprint.jpg" width="196" height="144" alt="">
+      </td>
+      <td width="91" height="69" colspan="2">
+        <img src="http://<%= url %>/images/email/total-top.jpg" width="91" height="69" alt="">
+      </td>
+      <td width="67" height="144" rowspan="3">
+        <img src="http://<%= url %>/images/email/index_04.jpg" width="67" height="144" alt="">
+      </td>
+    </tr>
+    <tr>
+      <td height="47" colspan="2" style="background-color:#cdd40a;">
+        <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 20px; color:#FFF; font-weight:normal; text-align:center; padding-top:8px;">
+          <%= number_with_precision( total_co2, :precision => 2 ) %>kg
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td height="18" colspan="2">
+        <img src="http://<%= url %>/images/email/total-bottom.jpg" width="91" height="28" alt="">
+    </td>
+    </tr>
+
+    <tr>
+      <td width="600" height="50" colspan="10">
+        <table width="600" height="81" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="433" height="77" style="background-color:#FFF;">
+              <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; color:#037e90; padding-left:36px;line-height:1.5;">
+                <span style="font-size:16px;">Hi <%= user.first_name %></span><br>
+                Hope you had a good week travelling round. Here's your weekly emissions breakdown from <strong>FourPrint.</strong>
+              </p>
+            </td>
+            <td width="157">
+              <img src="http://<%= url %>/images/email/spacer-under-total.jpg" width="157" height="100" alt="">
+            </td>
+          </tr>
+        </table><img src="http://<%= url %>/images/email/index_05.jpg" width="600" height="26" alt="">
+      </td>
+    </tr>
