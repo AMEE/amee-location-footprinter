@@ -58,6 +58,19 @@ class Checkin < ActiveRecord::Base
       Checkin.calculate_co2e_for_distance(distance, Calculations[transport.to_sym])
     end
 
+    def self.co2_for_flight(checkin1, checkin2)
+      c = Calculations[:route].begin_calculation
+
+      c.choose(
+        :lat1 => checkin1.lat.to_f,
+        :long1 => checkin1.lon.to_f,
+        :lat2 => checkin2.lat.to_f,
+        :long2 => checkin1.lon.to_f
+      )
+      c.calculate!
+      c[:lifeCycleCO2e].value
+    end
+
     def self.calculate_co2e_for_distance(distance, calculation_prototype)
 
       c = calculation_prototype.begin_calculation
@@ -119,9 +132,14 @@ class Checkin < ActiveRecord::Base
 
             distance = Checkin.distance_between_points(current_checkin, prev_checkin).to_km
 
+            flight_carbon = Checkin.co2_for_flight(prev_checkin, current_checkin) if distance > 200
+
+            # flights need different treatment, because we use a different algorithm
+            # for calculating the CO2
+
             l.update_attributes!({
               :distance => distance,
-              :co2 => Checkin.co2_for_km(distance),
+              :co2 => distance > 200 ? flight_carbon : Checkin.co2_for_km(distance),
               :timestamp => current_checkin.timestamp,
               :timezone => current_checkin.timezone,
             })

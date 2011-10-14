@@ -194,7 +194,11 @@ calculation{
     path :default
     type :float
   }
-  
+  output {
+    label :lifeCycleCO2e
+    name 'Full Direct and Indirect CO2e emissions'
+    path :default
+    type :float
+  } 
  } 
-  
 }

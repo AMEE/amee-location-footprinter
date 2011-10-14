@@ -75,17 +75,20 @@ describe Checkin do
 
   it "should calculate distances of between 200km and 1000km based on CO2 for domestic flights" do
 
+    checkin1 = FactoryGirl.build(:checkin, :lat => "51.514667", :lon => "-0.136047") # Off Broadway Bar, London
+    checkin2 = FactoryGirl.build(:checkin, :lat => "51.502557", :lon => "-0.07253941") # The Marksman Pub, London  
+
     distance = 300
-    flexmock('Checkin').should_receive(:carbon_for).with(:domestic_flight, distance)
+  
 
     flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
       mock.should_receive(:choose).and_return(nil)
       mock.should_receive(:calculate!).and_return(nil)
       # arbitrary value
-      mock.should_receive(:[]).with(:co2e).and_return(flexmock(:value => 98))
+      mock.should_receive(:[]).with(:lifeCycleCO2e).and_return(flexmock(:value => 98))
     end
 
-    Checkin.co2_for_km(distance).should eq 98
+    Checkin.co2_for_flight(checkin1,checkin2).should eq 98
 
   end
   
