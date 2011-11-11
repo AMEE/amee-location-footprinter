@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '~> 3.1'
 gem 'pg'
 
 # handy foursquare library
@@ -13,10 +13,18 @@ gem 'haversine'
 # take the rendering of the information out of the page request cycle
 gem 'delayed_job'
 
+gem 'bootstrap-sass'
+
 # relevant amee gems
 gem 'amee','~> 4.1.1'
 gem 'amee-data-abstraction', '~> 2.0.0'
 # gem 'amee-data-persistence', '~> 1.1.0'
+
+
+# Adding Railsadmin gems
+gem 'fastercsv' # Only required on Ruby 1.8 and below
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+
 
 # not needed right now
 # gem 'aasm','2.3.1'
@@ -24,7 +32,7 @@ gem 'amee-data-abstraction', '~> 2.0.0'
 # gem 'amee-analytics'
 # gem 'amee-data-classify'
 
-gem 'jquery-rails','~> 1.0.12'
+gem 'jquery-rails','~> 1.0.16'
 
 group :development, :test do
   gem 'gem-open'
@@ -54,3 +62,5 @@ group :test do
   gem 'vcr'
   gem 'flexmock'
 end
+
+gem "devise"
