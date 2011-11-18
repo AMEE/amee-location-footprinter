@@ -14,7 +14,8 @@ div#bg_texture {
   position: absolute;
   height: 100%;
   width: 100%;
-  background-position:0px -105px;
+  background-position:right -105px;
+  z-index: -100;
 }
 
 #pile_o_blocks {
@@ -24,6 +25,7 @@ div#bg_texture {
   width: 100%;
   background-position: right 320px;
   background-repeat: no-repeat;
+  z-index: -90;
 }
 
 #amee_logo {
@@ -109,3 +111,19 @@ a.connect{
 }
 
 
+
+/**
+ * About
+ *
+ * @section about
+ * Add a semi transparent background to make
+ * text more readable when it's rendered in front
+ * of an illustration.
+ */
+
+.copy{
+  background: #FFF;
+  background: rgba(255,255,255,0.6);
+  filter: alpha(opacity = 60); 
+  padding:12px;
+}

@@ -5,6 +5,7 @@ Cico2::Application.routes.draw do
   match 'footprints/user' => 'footprints#user'
   match 'footprints/checkins' => 'footprints#checkins'
   match 'footprints/thanks' => 'footprints#thanks'
+  match 'footprints/mine' => 'footprints#mine'
 
   match 'users/new' => 'users#new'
   match 'users/callback' => 'users#callback'
@@ -16,6 +17,8 @@ Cico2::Application.routes.draw do
   end
 
   resources :checkins
+
+  match 'about' => 'static#about'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

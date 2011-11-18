@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>FourPrint</title>
+  <title>AMEE Personal Score</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
 </head>
 <body>
 
+<%= render :partial => "layouts/app_feedback", :locals => { :current_user => current_user } %>
+
   <div class="topbar">
         <div class="fill">
           <div class="container">
-            <a class="brand" href="#">AMEE FourPrint</a>
+            <a class="brand" href="#">AMEE Personal Score</a>
             <ul class="nav">
-              <li><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact</a></li>
             </ul>
           </div>
         </div>

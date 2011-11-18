@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   
+  def about
+    
+  end
+  
   private
   
     def require_user
