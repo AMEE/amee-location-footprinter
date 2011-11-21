@@ -1,4 +1,4 @@
-Cico2::Application.configure do
+PersonalScore::Application.configure do
   # Use Pry instead of IRB
   silence_warnings do
     begin

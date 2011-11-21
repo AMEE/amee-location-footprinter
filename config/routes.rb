@@ -1,4 +1,4 @@
-Cico2::Application.routes.draw do
+PersonalScore::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 

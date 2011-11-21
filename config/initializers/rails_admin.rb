@@ -24,7 +24,7 @@ RailsAdmin.config do |config|
   config.current_user_method { current_user } # auto-generated
   
   # Set the admin name here (optional second array element will appear in a beautiful RailsAdmin red ©)
-  config.main_app_name = ['Cico2', 'Admin']
+  config.main_app_name = ['AMEE PersonalScore', 'Admin']
   # or for a dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 

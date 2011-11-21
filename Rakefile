@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Cico2::Application.load_tasks
+PersonalScore::Application.load_tasks
