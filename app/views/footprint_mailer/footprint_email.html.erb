@@ -14,7 +14,7 @@
     </p>
   </td>
   <td width="90" height="25">
-    <img src="http://<%= @url %>/images/email/hex-top.jpg" width="90" height="25" alt="" style="display: block;">
+    <img src="http://<%= @url %>/assets/email/hex-top.jpg" width="90" height="25" alt="" style="display: block;">
   </td>
   <td width="68" height="164" colspan="2" rowspan="4">
     &nbsp;
@@ -22,13 +22,13 @@
 </tr>
 <tr>
   <td width="238" height="42" colspan="5" style="background-color:#f0f2b5;">
-    <img src="http://<%= @url %>/images/email/<%= Checkin.transport_method_image(leg.distance) %>" width="238" height="42" alt="" style="display: block;">
+    <img src="http://<%= @url %>/assets/email/<%= Checkin.transport_method_image(leg.distance) %>" width="238" height="42" alt="" style="display: block;">
   </td>
   <td width="169" height="42" style="background-color:#f0f2b5;">
       <span style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 22px; color:#037e90; padding-top:8px;">
         <%= number_with_precision(leg.distance, :precision => 2) %> 
       </span>
-      <span style="font-size:12px;">
+      <span style="font-size:12px;font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; color:#037e90;">
         km
       </span>
   </td>
@@ -57,12 +57,12 @@
     </p>
   </td>
   <td width="90" height="76">
-    <img src="http://<%= @url %>/images/email/hex-bottom-line.jpg" width="90" height="76" alt="" style="display: block;">
+    <img src="http://<%= @url %>/assets/email/hex-bottom-line.jpg" width="90" height="76" alt="" style="display: block;">
   </td>
 </tr>
 <tr>
   <td width="497" height="21" colspan="7">
-    <img src="http://<%= @url %>/images/email/division-bottom-line.jpg" width="497" height="21" alt="" style="display: block;">
+    <img src="http://<%= @url %>/assets/email/division-bottom-line.jpg" width="497" height="21" alt="" style="display: block;">
   </td>
 </tr>
 <tr>

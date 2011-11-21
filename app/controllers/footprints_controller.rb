@@ -23,7 +23,12 @@ class FootprintsController < ApplicationController
     # let delayed job taker care of the processing
     Checkin.calculate_carbon_and_send_mail(u, checkins, app_url)
 
-    redirect_to footprints_thanks_url
+    if u.legs.blank?
+      redirect_to footprints_thanks_url
+    else
+      redirect_to footprints_mine_url
+    end
+
 
   end
 
@@ -32,6 +37,25 @@ class FootprintsController < ApplicationController
   end
 
   def checkins
+  end
+
+  def mine
+    u = User.find_by_foursquare_id(current_user.id)
+    begin
+      @given_week = Time.parse(params[:week])
+    rescue
+      @given_week = Time.now
+    end
+
+      @given_week_before = @given_week-1.week
+      @legs = u.legs.where(:timestamp => @given_week_before..@given_week)
+      @sunday_legs = u.legs.where(:timestamp => @given_week-1.day..@given_week)
+      @saturday_legs = u.legs.where(:timestamp => @given_week-2.day..@given_week-1.day)
+      @friday_legs = u.legs.where(:timestamp => @given_week-3.day..@given_week-2.day)
+      @thursday_legs = u.legs.where(:timestamp => @given_week-4.day..@given_week-3.day)
+      @wednesday_legs = u.legs.where(:timestamp => @given_week-5.day..@given_week-4.day)
+      @tuesday_legs = u.legs.where(:timestamp => @given_week-6.day..@given_week-5.day)
+      @monday_legs = u.legs.where(:timestamp => @given_week-7.day..@given_week-6.day)
   end
 
 end
