@@ -16,11 +16,9 @@ class FootprintsController < ApplicationController
 
     # build list of id's to iterate through from latest list of checkins
     checkins = Checkin.parse_checkins(u, current_user.checkins)
-
     # fetch our url for emailing
     app_url = request.host_with_port || ENV['APP_URL'] 
-    
-    # let delayed job taker care of the processing
+    # let delayed job take care of the processing
     Checkin.calculate_carbon_and_send_mail(u, checkins, app_url)
 
     # if u.legs.blank?

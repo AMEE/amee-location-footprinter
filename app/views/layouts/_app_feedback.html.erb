@@ -1,0 +1,10 @@
+<%= javascript_tag "var _kiq = _kiq || [];" %>
+<%= javascript_include_tag "//s3.amazonaws.com/ki.js/26387/5dh.js", :async => "true" %>
+
+<%# 
+ # If we have someone logged in, we ideally want to provide an identifier, 
+ # so their responses can be tracked easily. 
+%>
+<% if current_user.present? %>
+  <%= javascript_tag "_kiq.push(['identify', '#{current_user.email}']);" %>e
+<% end %>
