@@ -23,11 +23,11 @@ class FootprintsController < ApplicationController
     # let delayed job taker care of the processing
     Checkin.calculate_carbon_and_send_mail(u, checkins, app_url)
 
-    if u.legs.blank?
+    # if u.legs.blank?
       redirect_to footprints_thanks_url
-    else
-      redirect_to footprints_mine_url
-    end
+    # else
+    #   redirect_to footprints_mine_url
+    # end
 
 
   end
