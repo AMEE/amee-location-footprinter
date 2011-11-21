@@ -17,15 +17,15 @@
       <div class="span3">
         <%= image_tag leg.start_checkin.icon %>
         <%= leg.start_checkin.venue_name %>
-      </div>  
+      </div>
 
       <div class="span2">
-        <p><%= number_with_precision(leg.distance, :precision => 2) %></p> 
+        <p><%= number_with_precision(leg.distance, :precision => 2) %></p>
         <p><%= number_with_precision(leg.co2, :precision => 2) %> kg</p>
-      </div>  
+      </div>
 
     </li>
-    <% end %>  
+    <% end %>
   </ul>
 </li>
   <% end %>
