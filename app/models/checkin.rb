@@ -6,6 +6,8 @@ class Checkin < ActiveRecord::Base
 
     validates :lat, :lon, :foursquare_id, :timestamp, :venue_name, :timezone, :presence => true
 
+    validates_uniqueness_of :foursquare_id 
+
     def self.distance_between_points(checkin1, checkin2)
 
       distance = Haversine.distance(checkin1.lat.to_f, checkin1.lon.to_f, checkin2.lat.to_f, checkin2.lon.to_f)
@@ -89,23 +91,19 @@ class Checkin < ActiveRecord::Base
     def self.parse_checkins(user, checkin_payload)
 
         parsed_checkins = []
-
         checkin_payload.each_with_index do |checkin, index|      
-
-          c = user.checkins.find_or_create_by_foursquare_id(checkin.id)
-
-          c.update_attributes!({
+          
+          Checkin.find_or_create_by_foursquare_id({
             :lat => checkin.json['type'] == 'venueless' ? checkin.json['location']['lat'] : checkin.venue.location.lat,
             :lon => checkin.json['type'] == 'venueless' ? checkin.json['location']['lng'] : checkin.venue.location.lng,
             :timestamp => checkin.created_at,
             :timezone => checkin.timezone,
             :venue_name => checkin.json['type'] == 'venueless' ? checkin.json['location']['name'] : checkin.venue.name,
             :foursquare_id => checkin.id,
-            :icon => checkin.json['type'] == 'venueless' ? "https://foursquare.com/img/categories/none.png" : checkin.venue.icon 
+            :icon => checkin.json['type'] == 'venueless' ? "https://foursquare.com/img/categories/none.png" : checkin.venue.icon,
+            :user_id =>  user.id
           })
-          
           parsed_checkins << checkin.id
-          
         end
 
         # return our list of ids of checkins we just parsed
@@ -115,7 +113,6 @@ class Checkin < ActiveRecord::Base
 
 
     def self.calculate_carbon_and_send_mail(user, checkins, app_url)
-
       # cache them in the database
       checkins.each_with_index do |checkin, index|
 
@@ -123,21 +120,18 @@ class Checkin < ActiveRecord::Base
           # fetch our prev_checkin object
           if index > 0
             # make a compound index
-            # binding.pry
             prev_checkin = Checkin.find_by_foursquare_id(checkins[index-1])
             current_checkin = Checkin.find_by_foursquare_id(checkins[index])
 
-            # surely there's a nicer way to  write this?
-            l = user.legs.find_or_initialize_by_start_checkin_id_and_end_checkin_id(prev_checkin.id, current_checkin.id)
-
             distance = Checkin.distance_between_points(current_checkin, prev_checkin).to_km
-
             flight_carbon = Checkin.co2_for_flight(prev_checkin, current_checkin) if distance > 200
 
             # flights need different treatment, because we use a different algorithm
             # for calculating the CO2
 
-            l.update_attributes!({
+            l = user.legs.find_or_create_by_start_checkin_id_and_end_checkin_id({
+              :start_checkin_id => prev_checkin.id,
+              :end_checkin_id => current_checkin.id,
               :distance => distance,
               :co2 => distance > 200 ? flight_carbon : Checkin.co2_for_km(distance),
               :timestamp => current_checkin.timestamp,
@@ -146,9 +140,7 @@ class Checkin < ActiveRecord::Base
 
           end
 
-      end
-
-      
+        end
 
       # TODO turn to named scope - return list of checkins from the last 7 days
       @legs = user.legs.where("timestamp > ?", Date.current - 1.week )
