@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '~> 3.1'
+gem 'log_buddy'
 gem 'pg'
 
 # handy foursquare library
@@ -31,6 +32,7 @@ gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 # gem 'amee-auth'
 # gem 'amee-analytics'
 # gem 'amee-data-classify'
+
 
 gem 'jquery-rails','~> 1.0.16'
 
