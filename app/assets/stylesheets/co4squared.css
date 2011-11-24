@@ -15,6 +15,7 @@ div#bg_texture {
   bottom:0%;
   height: 100%;
   width: 100%;
+  overflow:scroll;
   background-position:right -105px;
   z-index: -100;
 }
@@ -25,6 +26,7 @@ div#bg_texture {
   bottom:0%;
   height: 100%;
   width: 100%;
+  overflow:scroll;
   background-position: right 320px;
   background-repeat: no-repeat;
   z-index: -90;
