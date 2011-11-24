@@ -41,7 +41,7 @@ describe FootprintMailer do
           # this should clear the delayed jobs tables of any jobs
 
           mail.deliver        
-          mail.subject.should == 'Your AMEE Personal Score for the week'
+          mail.subject.should == "This week's footprints, from AMEE Location Footprinter"
         end
 
       end

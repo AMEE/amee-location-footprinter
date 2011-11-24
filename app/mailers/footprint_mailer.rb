@@ -1,5 +1,5 @@
 class FootprintMailer < ActionMailer::Base
-  default :from => "AMEE Personal Score <no-reply@amee.com>"
+  default :from => "AMEE Location Footprinter <no-reply@amee.com>"
 
   def footprint_email(user, legs, application_url=nil)
     @user = user
@@ -19,7 +19,7 @@ class FootprintMailer < ActionMailer::Base
 
   def send_email_and_update_last_sent(user)
     user.update_attributes!(:last_email_sent => DateTime.now)
-    mail(:to => user.email, :subject => "Your AMEE Personal Score for the week")
+    mail(:to => user.email, :subject => "This week's footprints, from AMEE Location Footprinter")
   end
 
 end
