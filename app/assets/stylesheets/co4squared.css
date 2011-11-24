@@ -11,7 +11,8 @@ html {
 /* Add backgrounds used everywhere in the app */
 div#bg_texture {
   background: url(/assets/bg.jpg);
-  position: absolute;
+  position: fixed;
+  bottom:0%;
   height: 100%;
   width: 100%;
   background-position:right -105px;
@@ -20,7 +21,8 @@ div#bg_texture {
 
 #pile_o_blocks {
   background-image: url(/assets/smaller_pile_o_hexagons.png);
-  position: absolute;
+  position: fixed;
+  bottom:0%;
   height: 100%;
   width: 100%;
   background-position: right 320px;
