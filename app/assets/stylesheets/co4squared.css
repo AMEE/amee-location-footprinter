@@ -89,6 +89,23 @@ h3{
 p{
   margin-top:18px;
 }
+p strong {
+  font-style: italic;
+  font-weight:bold;
+}
+a {
+  color: #1E2FA3;
+  text-decoration: none;
+  line-height: inherit;
+  font-weight: inherit;
+  border-bottom:1px dotted #1E2FA3;
+}
+a:hover {
+  color: #1E2FA3;
+  text-decoration: none;
+  border-bottom:1px solid #1E2FA3;
+}
+
 
 #bg_texture div.container{
   margin-top:48px;
