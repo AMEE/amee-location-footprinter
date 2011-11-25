@@ -1,56 +1,89 @@
-# CICO2 
+# AMEE Location Footprinter (A.L.F.)
 
 With this app, you're able to sign in with your Foursquare account, and see the cumulative carbon footprint of your travels from checkin to checkin in your Foursquare history.
 
+Licensed under the BSD 3-Clause license (See LICENSE.txt for details)
+
+Authors: Chris Adams
+
+Copyright: Copyright (c) 2011 AMEE UK Ltd
+
+Homepage: http://github.com/amee/amee->
+
+Documentation: <DOCUMENTATION LINK>
+
+### INSTALLATION
+
+# AMEE Location Footprinter (A.L.F.)
+
 ## How to set this up
 
-Being a Rails 3 app, this we rely on later versions than the current official releases of the AMEE gems, in particular, `amee-ruby`, `amee-data-persistence`, and `amee-data-abstraction`. 
+(Assuming you have bundler installed)
 
-So, we'll have to run through a few steps beforehand to make sure we have a compatible set of gems available to us.
+First clone the repo:
 
-### Getting the right versions of `amee-ruby`, `amee-data-persistence`, and `amee-data-abstraction`
+    git clone https://github.com/AMEE/amee-location-footprinter.git
 
-First we need to checkout our gems from git. In our ~/AMEE-Code (or equivalent) directory, run:
+Then run bundler - it should fetch all the relevant dependencies
 
-    git clone https://github.com/AMEE/amee-ruby
-    git clone git@github.com:AMEE/amee-data-persistence.git
-    git clone git@github.com:AMEE/amee-data-abstraction.git
-
-Now, these gems need to be build in a specific order; `amee-data-abstraction`, then `amee-data-persistence`, then finally `amee-ruby`.
-
-In each case, to stop us fetching the wrong version of the from a remote server, we need to build and install the gem locally.
-
-#### Building and installing `amee-data-abstraction`
-
-Before we install the gem locally, we need to be sure we're on the correct branch, and and have the correct dependencies, before building the gem:
-
-    cd amee-data-abstraction
-    git checkout rails3
     bundle install
 
-Once we have this, we can then build the gem, and install it into the current gemset. Calling `gem install` with a given path like this overrides the normal behaviour of looking for pre-installed gem, or checking remotely for it.
-
-    rake build 
-    gem install ./pkg/amee-data-abstraction-1.1.0.gem
-
-#### Building and installing `amee-data-persistence` and `amee-ruby`
-
-We need to repeat the same process for the other two gems now:
-
-    cd ../amee-data-persistence
-    git checkout rails3
-    bundle install
-    rake build 
-    gem install ./pkg/amee-data-persistence-1.1.0.gem
-
-And finally do the same for the `amee-ruby` gem, which depends on the other two gems:
-
-    cd ../amee-ruby
-    git checkout rails3
-    bundle install
-    rake build 
-    gem install ./pkg/amee-3.0.1.gem
-
-With the other gems in place, we can now go back to the root of _this_ app, and run bundle install. Because our newer versions have been installed, bundler will default to using them than the official releases it would normally use.
+Once you have this you'll need credentials from foursquare to allow users to grant access to their checkins, and you'll need an API key from AMEE to make carbon calculations.
 
 
+#### Get your API keys
+
+##### FourSquare
+
+Once you're signed with Foursquare (we assume you have an account the service), head along to https://foursquare.com/oauth, And register the application name, website and callback url. You'll need these because Foursquare will redirect your browser back to this address once you've authenticated with them. The good news here is that because you are working from your browser, you can happily enter http://localhost:3000 (or http://alf.dev) as your home page url, and http://localhost:3000/user/callback (or http://alf.dev/user/callback) as your callback url for testing and local development.
+
+Once you have these set, add them to config/foursquare.yml like so:
+
+    defaults: &defaults
+      client_id: YOUR_CLIENT_ID
+      client_secret: YOUR_CLIENT_SECRET
+      redirect_url: http://localhost:3000/user/callback
+
+    development:
+      <<: *defaults
+
+    test:
+      <<: *defaults
+
+    production:
+      <<: *defaults
+
+###### AMEE
+
+Next fetch your credentials from AMEE, at https://my.amee.com/login. You'll need to sign up (it's free), then create a *Standard project*, giving it a name and url to visit it at.
+
+Click the name of your project and you'll be able to fetch the username and password from it, add add to the amee.yml file, like so:
+
+    defaults: &defaults
+      server: stage.amee.com
+      username: YOUR_PROJECT_NAME
+      password: YOUR_PASSWORD
+
+    development:
+      <<: *defaults
+
+    test:
+      <<: *defaults
+
+    production:
+      <<: *defaults
+
+##### Set up your database:
+
+Create your database, then run your migrations `rake db:migrate` or simply call `rake db:schema:load` to skip all the updates.
+
+
+== REQUIREMENTS
+
+This has been tested with Rails 3.1.2, running on Ruby 1.8.7 and 1.9.2. Postgres is the default database adapter on this project (because this was developed to run on Heroku), but MySQL and SQLite should both work too.
+
+== USAGE
+
+Start your local server, then make sure you have the delayed job worker running with `rake jobs:work`, so that emails are sent in a different process to the main rails request-response cycle. 
+
+Voila! Your own version of location footprinter is setup. Now get hacking!

@@ -1,3 +1,6 @@
+# Copyright (C) 2008-2011 AMEE UK Ltd. - http://www.amee.com
+# Released as Open Source Software under the BSD 3-Clause license. See LICENSE.txt for details.
+
 # Load in the relevant yaml file, to set them in the Rails configuration object
 def foursquare_api_config
   foursquare_config = YAML.load_file("#{Rails.root}/config/foursquare.yml")

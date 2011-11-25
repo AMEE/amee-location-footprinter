@@ -1,3 +1,6 @@
+# Copyright (C) 2008-2011 AMEE UK Ltd. - http://www.amee.com
+# Released as Open Source Software under the BSD 3-Clause license. See LICENSE.txt for details.
+
 # Setting our constant here gives us an object to run arbitrary calculations on as we build our list of API calls.
 
 Calculations = AMEE::DataAbstraction::CalculationSet.new {
