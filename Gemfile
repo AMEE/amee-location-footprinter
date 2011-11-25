@@ -25,7 +25,7 @@ gem 'amee-data-abstraction', '~> 2.0.0'
 # Adding Railsadmin gems
 gem 'fastercsv' # Only required on Ruby 1.8 and below
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
-
+gem 'airbrake'
 
 # not needed right now
 # gem 'aasm','2.3.1'
