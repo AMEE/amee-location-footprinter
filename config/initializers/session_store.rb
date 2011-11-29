@@ -3,9 +3,9 @@
 
 # Be sure to restart your server when you modify this file.
 
-PersonalScore::Application.config.session_store :cookie_store, :key => '_personal_score_session'
+Alf::Application.config.session_store :cookie_store, :key => '_personal_score_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
-# PersonalScore::Application.config.session_store :active_record_store
+# Alf::Application.config.session_store :active_record_store

@@ -1,0 +1,7 @@
+= Changelog
+
+== 0.4.2
+ * first public release
+
+== up to 0.4.1
+ * clean up codebase for public release, and various renamings

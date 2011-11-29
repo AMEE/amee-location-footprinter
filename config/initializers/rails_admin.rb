@@ -8,7 +8,7 @@ RailsAdmin.config do |config|
   config.current_user_method { current_user } # auto-generated
   
   # Set the admin name here (optional second array element will appear in a beautiful RailsAdmin red ©)
-  config.main_app_name = ['AMEE PersonalScore', 'Admin']
+  config.main_app_name = ['AMEE Location Footprinter', 'Admin']
   # or for a dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
@@ -27,7 +27,7 @@ RailsAdmin.config do |config|
   config.authenticate_with do
     user = Rails.env.production? ? ENV['ADMIN_USER'] : 'admin'
     pass = Rails.env.production? ? ENV['ADMIN_PASSWORD'] : 'password'
-    authenticate_or_request_with_http_basic('AskAMEE Admin') do |username, password|
+    authenticate_or_request_with_http_basic('AMEE Location Footprinter Admin') do |username, password|
       username == user  && password == pass
     end
   end
