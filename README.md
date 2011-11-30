@@ -8,7 +8,7 @@ Authors: Chris Adams
 
 Copyright: Copyright (c) 2011 AMEE UK Ltd
 
-Homepage: http://github.com/AMEE/amee-location-footprinter.git
+Homepage: http://github.com/AMEE/amee-location-footprinter
 
 Documentation: <DOCUMENTATION LINK>
 
