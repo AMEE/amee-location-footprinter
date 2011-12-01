@@ -71,3 +71,4 @@ group :test do
 end
 
 gem "devise"
+gem 'rack-google_analytics', :require => "rack/google_analytics"
