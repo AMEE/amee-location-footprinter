@@ -21,9 +21,20 @@
       :class => 'connect no_underline'
   %>
 
-    <%#= image_tag('example-mail-thumbnail.png', :alt => "Welcome to AMEE Location Footprinter", :class => "sample-mail") %>
+  <h3 class="weekly_email">
+    You'll get a weekly email summary of the environmental footprint your journeys.
+  </h3>
 
 
+    <%= link_to image_tag(
+		'example-mail-thumbnail.png', 
+		:alt => "Example email", 
+		:class => "sample_mail"
+		),
+		asset_path('ALF-Mail-resized.png'),
+		:class => "sample_mail no_underline",
+		:title => "Example email sent by ALF"
+	 %>
 
   <br />
   
