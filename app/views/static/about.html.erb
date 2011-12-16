@@ -2,17 +2,7 @@
 
 <div class="copy">
 
-  <h3>
-    AMEE Location Footprinter is a fun, easy to use app that gives you a
-    general idea of the environmental impact of your travel.
-  </h3>
-
-  <p>
-    This is an experiment, built on top of the FourSquare API, to work out the
-    distance and method of implied travel implied between checkins, and
-    calculating the associated emissions, based on the peer reviewed emission
-    factors available through the AMEE platform.
-  </p>
+  <p>This is an experiment, built on top of the foursquare API, to work out the distance and method of implied travel implied between check-ins, and calculating the associated emissions, based on the peer reviewed emission factors available through the AMEE platform.</p>
 
   <h3 id="limitations_disclaimers_provisos">
     Limitations, disclaimers, and provisos.
@@ -32,57 +22,23 @@
   </p>
 
   <ul>
-    <li>
-      <p>
-        routes between checkins are straight lines (remember, this is mainly a
-        hack for fun, and we don&#8217;t use real route finding APIs, like those
-        provided by Google, Bing or OpenStreetMap).
-      </p>
-    </li>
-    <li>
-      <p>
-        distance is the primary factor used when trying to work out whether a
-        journey was taken by car, train, bike, or plane. We link to the
-        methodology used for each emission factor in each case.
-      </p>
-    </li>
-    <li>
-      <p>
-        we assume for this experiment that whenever people travel anywhere, they
-        faithfully remember to check in at every destination.
-      </p>
-    </li>
+
+  <li><p>routes between check-ins are straight lines (remember, this is mainly a hack for fun, and we don&#8217;t use real route finding APIs, like those provided by Google, Bing or OpenStreetMap).</p></li>
+  <li><p>distance is the primary factor used when trying to work out whether a journey was taken by car, train, bike, or plane. We link to the methodology used for each emission factor in each case.</p></li>
+  <li><p>we assume for this experiment that whenever people travel anywhere, they faithfully remember to check in at every destination.</p></li>
   </ul>
 
-  <p>
-    If these assumptions <em>precisely</em> match how you travel, and how you
-    use FourSquare, we think you&#8217;ll find this app to be eerily accurate.
-    If this isn't the case, we hope it's still interesting.
-  </p>
+  <p>If these assumptions <em>precisely</em> match how you travel, and how you use foursquare, we think you&#8217;ll find this app to be eerily accurate. If this isn't the case, we hope it's still interesting. </p>
+
+  <h3 id="what_next">What next?</h3>
+
+  <p>We&#8217;d love to develop this further, so if you have any suggestions, ideas or feature requests, why not pop a suggestion in the little box that pops up in the corner.</p>
 
   <h3 id="what_next">
     What next?
   </h3>
 
-  <p>
-    We&#8217;d love to develop this further, so if you have any suggestions,
-    ideas or feature requests, why not pop a suggestion in the little box that
-    pops up in the corner.
-  </p>
-
-  <p>
-    If know your way around Ruby and Git, and you're curious about how this was
-    built, (or even better, you&#8217;d like to hack on it and make it better)
-    <%=
-      link_to "all the code is available on github",
-        "https://github.com/AMEE/amee-location-footprinter"
-    %>.
-  </p>
-
-  <p>
-    Sending a pull request would make our developers incredibly happy, so if you
-    can, get forking!
-  </p>
+  <p>Sending <%= link_to "a pull request or having a look through our issue queue", "https://github.com/AMEE/amee-location-footprinter/issues" %> would make our developers incredibly happy, so if you can, get forking!</p>
   
 </div>
 

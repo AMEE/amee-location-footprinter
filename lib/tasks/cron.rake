@@ -4,7 +4,7 @@ task :cron => :environment do
   User.where("last_email_sent < ?", Time.now - 7.days).find_each(:batch_size => 200) do |user|
 
     # fetch checkins with user's API token
-    foursquare_user = Foursquare.new(user.token).users.find("self")
+    foursquare_user = Foursquare::Base.new(user.token).users.find("self")
 
     # fetch the user's newest checkins
     checkins = foursquare_user.checkins
@@ -16,7 +16,7 @@ task :cron => :environment do
     # if there are new ones, add them to the database, and
     # calculate the carbon and distance between them
     # then send the next email
-    Checkin.calculate_carbon_and_send_mail(u, checkins, app_url)
+    Checkin.calculate_carbon_and_send_mail(user, checkins, app_url)
   end
 
 end
