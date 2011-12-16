@@ -1,11 +1,11 @@
 <div class="row">
 
-<div class="span8">
+<div class="span10 offset4">
 
   <div id="amee_logo">
     <h1>
       <%=
-        image_tag('alf.png', :alt => "Welcome to AMEE Location Footprinter")
+        image_tag('welcome-to-alf.png', :alt => "Welcome to AMEE Location Footprinter")
       %>
     </h1>
   </div>
@@ -21,18 +21,23 @@
       :class => 'connect no_underline'
   %>
 
+    <%#= image_tag('example-mail-thumbnail.png', :alt => "Welcome to AMEE Location Footprinter", :class => "sample-mail") %>
+
+
+
   <br />
   
-  <h3>
+  <h4 class="learn_more">
     <%= link_to "Learn more >>", "/learn_more" %>
-  </h3>
+  </h4>
 
   <br />
 
   <%=
     link_to image_tag(
         'poweredbyamee-icon.png',
-        :alt => "AMEE - Environmental Intelligence Everywhere"
+        :alt => "AMEE - Environmental Intelligence Everywhere",
+		:class => "powered_by_amee"
       ),
       "http://www.amee.com",
       :title => "AMEE Location Footprinter is powered by AMEE, a company
@@ -41,12 +46,6 @@
       :class => 'no_underline'
   %>
 
-</div>
-
-<div class="span4 offset3">
-
-  
-  
 </div>
 
 </div>
