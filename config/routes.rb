@@ -18,6 +18,7 @@ Alf::Application.routes.draw do
 
   resources :checkins
 
+  match 'learn_more' => 'static#learn_more'
   match 'about' => 'static#about'
 
   # The priority is based upon order of creation:

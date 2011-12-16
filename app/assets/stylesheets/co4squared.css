@@ -42,15 +42,9 @@ div#bg_texture {
   top:30px;
 }
 
-#welcome_to_co4squared{
-/* margin-top:2px; */
-}
-
-
 /* ===================== */
 /* = Nav Bar overrides = */
 /* ===================== */
-
 
 .topbar-inner, .topbar .fill {
   background-color: #222;
@@ -124,14 +118,13 @@ a.connect{
   -moz-border-radius: 25px;
   border-radius: 25px;
   background: #0072b1;
-  width:  215px;
-  display:  block;
-  position: relative;
-  left: 65px;
-  top: 135px;
+  width: 335px;
+  display: block;
 }
 
-
+a.no_underline{
+  border: 0px;
+}
 
 /**
  * About

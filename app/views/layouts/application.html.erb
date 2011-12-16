@@ -8,20 +8,25 @@
 </head>
 <body>
 
-<%= render :partial => "layouts/app_feedback", :locals => { :current_user => current_user } %>
+  <%=
+    render :partial => "layouts/app_feedback",
+      :locals => { :current_user => current_user }
+  %>
 
   <div class="topbar">
-        <div class="fill">
-          <div class="container">
-            <a class="brand" href="/">AMEE Location Footprinter</a>
-            <ul class="nav">
-              <li><a href="/about">About</a></li>
-            </ul>
-          </div>
-        </div>
+    <div class="fill">
+      <div class="container">
+        <a class="brand" href="/">AMEE Location Footprinter</a>
+        <ul class="nav">
+          <li><a href="/learn_more">Learn More</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
       </div>
-<div id="bg_texture">
-<div id="pile_o_blocks"></div>
+    </div>
+  </div>
+  
+  <div id="bg_texture">
+  <div id="pile_o_blocks"></div>
 
   <div class="container">
 
