@@ -27,14 +27,14 @@ div#bg_texture {
   height: 100%;
   width: 100%;
   overflow:scroll;
-  background-position: right 320px;
+  background-position: right 675px;
   background-repeat: no-repeat;
   z-index: -90;
 }
 
 #amee_logo {
   width: 236px;
-  height: 82px;
+  height: 150px;
   display:block;
   margin-bottom:60px;
   position:relative;
@@ -76,8 +76,19 @@ h1,h2,h3, h4, p{
 }
 
 h3{
-  font-size:  16px;
+  font-size:  21px;
+	font-weight: lighter;
+	font-family:"Helvetica Neue";
   line-height: 1.5;
+	width:375px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+}
+
+h3.weekly_email{
+	margin-top:18px;
+	width:400px;
 }
 
 p{
@@ -108,7 +119,7 @@ a:hover {
 /* Styling connect via link*/
 
 a.connect{
-  margin: 5px 3px 5px 0;
+  margin: 5px 3px 5px 105px;
   padding-left: 30px;
   padding-top:  15px;
   padding-bottom: 5px;
@@ -126,6 +137,18 @@ a.no_underline{
   border: 0px;
 }
 
+h4.learn_more{
+	margin-top:18px;
+  font-size:  14px;
+	font-weight: lighter;
+	font-family:"Helvetica Neue";
+  line-height: 1.5;
+	width:150px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+}
+
 /**
  * About
  *
@@ -140,4 +163,19 @@ a.no_underline{
   background: rgba(255,255,255,0.6);
   filter: alpha(opacity = 60); 
   padding:12px;
+}
+
+.copy h3{
+	text-align:left;
+	margin-left:0px;
+}
+
+
+img.powered_by_amee{
+
+}
+
+img.sample_mail{
+	margin-top:18px;
+	margin-left:135px;
 }
