@@ -1,30 +1,51 @@
 <div class="row">
 
-<div class="span7">
+<div class="span8">
 
   <div id="amee_logo">
-    <h1><%= image_tag('alf.png', :alt => "Welcome to AMEE Location Footprinter") %></h1>
+    <h1>
+      <%=
+        image_tag('alf.png', :alt => "Welcome to AMEE Location Footprinter")
+      %>
+    </h1>
   </div>
 
-  <h3>AMEE Location Footprinter estimates the environmental impact of your travel based on check-ins with Foursquare.</h3>
+  <h3>
+    ALF helps you understand the environmental impact of your travel
+  </h3>
 
-  <p>We do this by guessing your mode of travel between check-ins, based on the distance between, and then calculating the CO2 associated with that mode of travel over that distance. You can then compare different means of transport to see which is the most carbon-efficient, and how little changes to your daily routine can make a difference to the environment.</p>
+  <br />
 
-  <p>Every week you'll get a personalised email summary of all your journeys, with the total amount of carbon emitted, so you can see how you're doing.</p>
+  <%=
+    link_to image_tag('connect.png'), @authorize_url,
+      :class => 'connect no_underline'
+  %>
+
+  <br />
   
-  <p>Hopefully it'll surprise you how much a change of transport can help to lower the CO2 you're responsible for.</p>
+  <h3>
+    <%= link_to "Learn more >>", "/learn_more" %>
+  </h3>
 
-<p>Just remember, this app is intended for fun and increasing the general awareness and understanding of the environmental impact of travel. See our <%= link_to "disclaimer and assumptions", "/about" %></p>
+  <br />
 
-<p>* (or A.L.F to his friends)</p>
-
-<%= link_to image_tag('poweredbyamee-icon.png', :alt => "AMEE - Environmental Intelligence Everywhere"), "http://www.amee.com", :title => "AMEE Location Footprinter is powered by AMEE, a company dedicated to finding lasting solutions for the world's environmental problems." %>
+  <%=
+    link_to image_tag(
+        'poweredbyamee-icon.png',
+        :alt => "AMEE - Environmental Intelligence Everywhere"
+      ),
+      "http://www.amee.com",
+      :title => "AMEE Location Footprinter is powered by AMEE, a company
+        dedicated to finding lasting solutions for the world's environmental
+        problems.",
+      :class => 'no_underline'
+  %>
 
 </div>
 
 <div class="span4 offset3">
 
-  <%= link_to image_tag('connect.png'), @authorize_url, :class => 'connect  ' %>
+  
   
 </div>
 
