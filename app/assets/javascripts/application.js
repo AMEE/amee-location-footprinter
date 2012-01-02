@@ -7,3 +7,19 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+jQuery(document).ready(function() {
+
+jQuery(".sample_mail").fancybox({
+   	openEffect	: 'elastic',
+   	closeEffect	: 'elastic',
+
+		helpers : {
+		    		title : {
+		    			type : 'inside'
+		    		}
+		    	}
+
+
+	});
+});

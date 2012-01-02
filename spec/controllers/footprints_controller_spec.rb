@@ -24,8 +24,6 @@ describe FootprintsController do
     it "should fetch user details and checkins from foursquare" do
 
       get 'user'
-
-      
       User.first should_not be_blank
       first_journey = User.first.legs.first
 
@@ -39,15 +37,20 @@ describe FootprintsController do
       end_checkin.incoming_leg.should == first_journey
     end
 
-    it "should forward the user to a thank you page" do
+    it "should forward the user to their checkins page" do
 
       # start the mocked out sign in process
       get 'user'
       User.count.should eq 1
-
-      response.should redirect_to footprints_thanks_path
+      response.should redirect_to footprints_mine_path
     end
 
+    it "lets people see checkins from last week" do
+      get 'user'
+
+      # add timecop to set the date for the fixtures
+      # check if they're displayed
+    end
 
   end
 
