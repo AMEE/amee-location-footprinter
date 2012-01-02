@@ -43,8 +43,10 @@ class FootprintsController < ApplicationController
   def mine
     u = User.find_by_foursquare_id(current_user.id)
     begin
-      @given_week = Time.parse(params[:week])
+      d params
+      @given_week = Time.parse(params[:week_end_date])
     rescue
+      d params
       @given_week = Time.now
     end
 
