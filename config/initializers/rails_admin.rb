@@ -7,10 +7,8 @@ RailsAdmin.config do |config|
 
   # config.current_user_method { current_user } # auto-generated
 
-  config.current_user_method do
-      User.find_by_email(current_user.email)
-  end
-
+  config.current_user_method { current_admin }
+  
   # Set the admin name here (optional second array element will appear in a beautiful RailsAdmin red ©)
   config.main_app_name = ['AMEE Location Footprinter', 'Admin']
   # or for a dynamic name:
