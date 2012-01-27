@@ -48,14 +48,16 @@ group :development, :test do
   gem 'guard'
   gem 'guard-rspec'
   # only install the fsevent gem for guard, if we're on a mac
-  gem 'rb-fsevent',   :require => false if RUBY_PLATFORM =~ /darwin/i 
-  gem 'growl_notify', :require => false if RUBY_PLATFORM =~ /darwin/i 
+  gem 'rb-fsevent',   :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'growl_notify', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'pry'
   gem 'pry-doc'
   gem 'log_buddy'
-#   # Preview email in the browser instead of sending it.
-
-  gem "letter_opener"
+  # Preview email in the browser instead of sending it.
+  # We're using a different fork because ryanb's one
+  # has a small error reported here, with a pending pull request
+  # https://github.com/ryanb/letter_opener/pull/15
+  gem "letter_opener", :git => "git://github.com/pcg79/letter_opener.git"
 end
 
 group :test do

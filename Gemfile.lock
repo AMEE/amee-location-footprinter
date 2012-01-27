@@ -8,6 +8,13 @@ GIT
       daemons
 
 GIT
+  remote: git://github.com/pcg79/letter_opener.git
+  revision: 770282bc220d5ed7427d5cc316711fe0423ab67b
+  specs:
+    letter_opener (0.0.2)
+      launchy
+
+GIT
   remote: git://github.com/sferik/rails_admin.git
   revision: b3d409c30f668e04b3677298fe6bbbd1f1782682
   specs:
@@ -132,8 +139,6 @@ GEM
       railties (>= 3.0.0)
     launchy (2.0.5)
       addressable (~> 2.2.6)
-    letter_opener (0.0.2)
-      launchy
     log4r (1.1.10)
     log_buddy (0.6.0)
     mail (2.3.0)
@@ -271,7 +276,7 @@ DEPENDENCIES
   guard-rspec
   haversine
   jquery-rails (~> 1.0.16)
-  letter_opener
+  letter_opener!
   log_buddy
   net-http-spy
   pg
