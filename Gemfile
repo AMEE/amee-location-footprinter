@@ -3,7 +3,7 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1'
+gem 'rails', '~> 3.1.3'
 gem 'log_buddy'
 gem 'pg'
 
@@ -15,7 +15,7 @@ gem 'quimby'
 gem 'haversine'
 
 # take the rendering of the information out of the page request cycle
-gem 'delayed_job'
+gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git', :branch => "v2.1"
 
 gem 'bootstrap-sass'
 
@@ -54,6 +54,7 @@ group :development, :test do
   gem 'pry-doc'
   gem 'log_buddy'
 #   # Preview email in the browser instead of sending it.
+
   gem "letter_opener"
 end
 
@@ -69,6 +70,8 @@ group :test do
   gem 'vcr'
   gem 'flexmock'
 end
+
+
 
 gem "devise"
 gem 'rack-google_analytics', :require => "rack/google_analytics"
