@@ -20,8 +20,8 @@ gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git', :b
 gem 'bootstrap-sass'
 
 # relevant amee gems
-gem 'amee','~> 4.1.1'
-gem 'amee-data-abstraction', '~> 2.0.0'
+gem 'amee'
+gem 'amee-data-abstraction'
 # gem 'amee-data-persistence', '~> 1.1.0'
 
 
@@ -63,9 +63,7 @@ end
 group :test do
   gem 'timecop'
   gem 'rspec', '~> 2.6.0'
-  gem 'rspec', '~> 2.6.0'
   gem 'rspec-rails'
-  gem 'shoulda', '~> 2.11.3'
   gem "factory_girl_rails",'~> 1.2.0'
   gem 'redgreen'
   gem 'webmock', '~>1.7.0'

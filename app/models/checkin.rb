@@ -9,7 +9,7 @@ class Checkin < ActiveRecord::Base
 
     validates :lat, :lon, :foursquare_id, :timestamp, :venue_name, :timezone, :presence => true
 
-    validates_uniqueness_of :foursquare_id 
+    validates_uniqueness_of :foursquare_id
 
     def self.distance_between_points(checkin1, checkin2)
 
@@ -34,7 +34,7 @@ class Checkin < ActiveRecord::Base
       else
         "plane.jpg" # most likely option
       end
-        
+
     end
 
 
@@ -42,7 +42,7 @@ class Checkin < ActiveRecord::Base
       circumference_of_earth = 40075 # to the nearest km
       case distance
       when 0..1
-        # AMEE always returns '0' for walking, so we can return 
+        # AMEE always returns '0' for walking, so we can return
         Checkin.carbon_for('walking', distance)
       when 1..200
         Checkin.carbon_for('car', distance)
@@ -64,7 +64,7 @@ class Checkin < ActiveRecord::Base
     end
 
     def self.co2_for_flight(checkin1, checkin2)
-      c = Calculations[:route].begin_calculation
+      c = AMEE::DataAbstraction::CalculationSet.find(:calculations)[:route].begin_calculation
 
       c.choose(
         :lat1 => checkin1.lat.to_f,
@@ -80,7 +80,7 @@ class Checkin < ActiveRecord::Base
 
       c = calculation_prototype.begin_calculation
 
-      c.choose( 
+      c.choose(
       :amount => distance,
       :name => rand(10e6)
       )
@@ -89,79 +89,104 @@ class Checkin < ActiveRecord::Base
       c[:co2e].value
     end
 
-    
-
     def self.parse_checkins(user, checkin_payload)
 
         parsed_checkins = []
-        checkin_payload.each_with_index do |checkin, index|      
-          
-          Checkin.find_or_create_by_foursquare_id({
-            :lat => checkin.json['type'] == 'venueless' ? checkin.json['location']['lat'] : checkin.venue.location.lat,
-            :lon => checkin.json['type'] == 'venueless' ? checkin.json['location']['lng'] : checkin.venue.location.lng,
-            :timestamp => checkin.created_at,
-            :timezone => checkin.timezone,
-            :venue_name => checkin.json['type'] == 'venueless' ? checkin.json['location']['name'] : checkin.venue.name,
-            :foursquare_id => checkin.id,
-            :icon => checkin.json['type'] == 'venueless' ? "https://foursquare.com/img/categories/none.png" : checkin.venue.icon,
-            :user_id =>  user.id
-          })
-          parsed_checkins << checkin.id
+        checkin_payload.each_with_index do |checkin, index|
+
+          if checkin.type == "venue"
+            c = Checkin.find_or_create_by_foursquare_id({
+              :lat => checkin.json['type'] == 'venueless' ? checkin.json['location']['lat'] : checkin.venue.location.lat,
+              :lon => checkin.json['type'] == 'venueless' ? checkin.json['location']['lng'] : checkin.venue.location.lng,
+              :timestamp => checkin.created_at,
+              :timezone => checkin.timezone,
+              :venue_name => checkin.json['type'] == 'venueless' ? checkin.json['location']['name'] : checkin.venue.name,
+              :foursquare_id => checkin.id,
+              :icon => checkin.json['type'] == 'venueless' ? "https://foursquare.com/img/categories/none.png" : checkin.venue.icon,
+              :user_id =>  user.id
+            })
+            parsed_checkins << checkin.id
+
+            d { c.venue_name }
+          end
         end
 
         # return our list of ids of checkins we just parsed
         parsed_checkins
+
+      rescue => err
+        raise CheckinParseError
     end
 
 
+   def self.calculate_carbon(user, current_checkin, prev_checkin)
 
-    def self.calculate_carbon_and_send_mail(user, checkins, app_url)
-      # cache them in the database
-      checkins.each_with_index do |checkin, index|
+    distance = Checkin.distance_between_points(current_checkin, prev_checkin).to_km
+    flight_carbon = Checkin.co2_for_flight(prev_checkin, current_checkin) if distance > 200
 
-          # we need to be at least in the second iteration of the loop
-          # fetch our prev_checkin object
-          if index > 0
-            # make a compound index
-            prev_checkin = Checkin.find_by_foursquare_id(checkins[index-1])
-            current_checkin = Checkin.find_by_foursquare_id(checkins[index])
+    # flights need different treatment, because we use a different algorithm
+    # for calculating the CO2
 
-            distance = Checkin.distance_between_points(current_checkin, prev_checkin).to_km
-            flight_carbon = Checkin.co2_for_flight(prev_checkin, current_checkin) if distance > 200
+    l = user.legs.find_or_create_by_start_checkin_id_and_end_checkin_id({
+      :start_checkin_id => prev_checkin.id,
+      :end_checkin_id => current_checkin.id,
+      :distance => distance,
+      :co2 => co2_for_flight,
+      :timestamp => current_checkin.timestamp,
+      :timezone => current_checkin.timezone,
+    })
 
-            # flights need different treatment, because we use a different algorithm
-            # for calculating the CO2
+    d "#{prev_checkin.venue_name} to #{current_checkin.venue_name}"
+    d { l.co2 }
 
-            l = user.legs.find_or_create_by_start_checkin_id_and_end_checkin_id({
-              :start_checkin_id => prev_checkin.id,
-              :end_checkin_id => current_checkin.id,
-              :distance => distance,
-              :co2 => distance > 200 ? flight_carbon : Checkin.co2_for_km(distance),
-              :timestamp => current_checkin.timestamp,
-              :timezone => current_checkin.timezone,
-            })
+  rescue => err
+    raise FlightCalculationError
+  end
 
+  def self.calculate_carbon_and_send_mail(user, checkins, app_url)
+    # cache them in the database
+    checkins.each_with_index do |checkin, index|
+      next if index == 0 || checkin.type != "venue"
+
+        # we need to be at least in the second iteration of the loop
+        # fetch our prev_checkin object
+        # make a compound index
+        if index > 1
+
+          prev_checkin = Checkin.find_by_foursquare_id(checkins[index-1].id)
+          if prev_checkin == nil
+            raise Exception "can't find Checkin for given foursquare id"
           end
 
+          current_checkin = Checkin.find_by_foursquare_id(checkins[index].id)
+          if current_checkin == nil
+            raise Exception "can't find Checkin for given foursquare id"
+          end
+
+          Checkin.calculate_carbon(user, current_checkin, prev_checkin)
         end
 
-      # TODO turn to named scope - return list of checkins from the last 7 days
-      @legs = user.legs.where("timestamp > ?", Date.current - 1.week )
+      end
 
-      # using delay makes this act as a delayed job
-      # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
-      FootprintMailer.footprint_email(user, @legs, app_url).deliver!
+    # TODO turn to named scope - return list of checkins from the last 7 days
+    @legs = user.legs.where("timestamp > ?", Date.current - 1.week )
 
-    end
+    # using delay makes this act as a delayed job
+    # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
+    FootprintMailer.footprint_email(user, @legs, app_url).deliver!
 
-    class << self
-      handle_asynchronously :calculate_carbon_and_send_mail
-    end
+  rescue => err
+    raise Exception "couldn't delegate mail to delayed job"
+  end
 
-
-
-
+  # When debugging, it may be useful to to comment out this line,
+  # to make the mailng happen in a single process instead of 
+  # relying on delayed job
+  class << self
+    handle_asynchronously :calculate_carbon_and_send_mail
+  end
 
 end
 
 class DistanceError < Exception ;end
+class FlightCalculationError < Exception ;end
