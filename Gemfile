@@ -3,7 +3,7 @@
 
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1'
+gem 'rails', '~> 3.1.3'
 gem 'log_buddy'
 gem 'pg'
 
@@ -15,13 +15,13 @@ gem 'quimby'
 gem 'haversine'
 
 # take the rendering of the information out of the page request cycle
-gem 'delayed_job'
+gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git', :branch => "v2.1"
 
 gem 'bootstrap-sass'
 
 # relevant amee gems
-gem 'amee','~> 4.1.1'
-gem 'amee-data-abstraction', '~> 2.0.0'
+gem 'amee'
+gem 'amee-data-abstraction'
 # gem 'amee-data-persistence', '~> 1.1.0'
 
 
@@ -48,27 +48,30 @@ group :development, :test do
   gem 'guard'
   gem 'guard-rspec'
   # only install the fsevent gem for guard, if we're on a mac
-  gem 'rb-fsevent',   :require => false if RUBY_PLATFORM =~ /darwin/i 
-  gem 'growl_notify', :require => false if RUBY_PLATFORM =~ /darwin/i 
+  gem 'rb-fsevent',   :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'growl_notify', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'pry'
   gem 'pry-doc'
   gem 'log_buddy'
-#   # Preview email in the browser instead of sending it.
-  gem "letter_opener"
+  # Preview email in the browser instead of sending it.
+  # We're using a different fork because ryanb's one
+  # has a small error reported here, with a pending pull request
+  # https://github.com/ryanb/letter_opener/pull/15
+  gem "letter_opener", :git => "git://github.com/pcg79/letter_opener.git"
 end
 
 group :test do
   gem 'timecop'
   gem 'rspec', '~> 2.6.0'
-  gem 'rspec', '~> 2.6.0'
   gem 'rspec-rails'
-  gem 'shoulda', '~> 2.11.3'
   gem "factory_girl_rails",'~> 1.2.0'
   gem 'redgreen'
   gem 'webmock', '~>1.7.0'
   gem 'vcr'
   gem 'flexmock'
 end
+
+
 
 gem "devise"
 gem 'rack-google_analytics', :require => "rack/google_analytics"
