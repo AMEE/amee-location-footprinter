@@ -8,7 +8,7 @@ RailsAdmin.config do |config|
   # config.current_user_method { current_user } # auto-generated
 
   config.current_user_method { current_admin }
-  
+
   # Set the admin name here (optional second array element will appear in a beautiful RailsAdmin red ©)
   config.main_app_name = ['AMEE Location Footprinter', 'Admin']
   # or for a dynamic name:
@@ -128,9 +128,9 @@ RailsAdmin.config do |config|
   #     # Here goes the fields configuration for the update view, overriding edit section settings
   #   end
   # end
-  
+
   # Your model's configuration, to help you get started:
-  
+
   # All fields marked as 'hidden' won't be shown anywhere in the rails_admin unless you mark them as visible.
   # There can be different reasons for that:
   #  - belongs_to _id and _type (polymorphic) columns are hidden in favor of their associations
@@ -140,26 +140,26 @@ RailsAdmin.config do |config|
   #  - non-editable columns (:id, :created_at, ..) in edit sections
   #  - has_many/has_one associations in list section (hidden by default for performance reasons)
   # Fields may also be marked as read_only (and thus not editable) if they are not mass-assignable by current_user
-  
+
 
   # config.model Checkin do
   #   # Found associations:
-  #     field :outgoing_leg, :has_one_association 
-  #     field :incoming_leg, :has_one_association 
-  #     field :user, :belongs_to_association 
+  #     field :outgoing_leg, :has_one_association
+  #     field :incoming_leg, :has_one_association
+  #     field :user, :belongs_to_association
   #   # Found columns:
-  #     field :id, :integer 
-  #     field :lat, :string 
-  #     field :lon, :string 
-  #     field :timestamp, :datetime 
-  #     field :foursquare_id, :string 
-  #     field :timezone, :string 
-  #     field :created_at, :datetime 
-  #     field :updated_at, :datetime 
-  #     field :venue_name, :string 
-  #     field :user_id, :integer         # Hidden 
-  #     field :icon, :string 
-  #     field :leg_id, :integer 
+  #     field :id, :integer
+  #     field :lat, :string
+  #     field :lon, :string
+  #     field :timestamp, :datetime
+  #     field :foursquare_id, :string
+  #     field :timezone, :string
+  #     field :created_at, :datetime
+  #     field :updated_at, :datetime
+  #     field :venue_name, :string
+  #     field :user_id, :integer         # Hidden
+  #     field :icon, :string
+  #     field :leg_id, :integer
   #   # Sections:
   #   list do; end
   #   export do; end
@@ -171,21 +171,21 @@ RailsAdmin.config do |config|
 
   # config.model Leg do
   #   # Found associations:
-  #     field :start_checkin, :belongs_to_association 
-  #     field :end_checkin, :belongs_to_association 
-  #     field :user, :belongs_to_association 
+  #     field :start_checkin, :belongs_to_association
+  #     field :end_checkin, :belongs_to_association
+  #     field :user, :belongs_to_association
   #   # Found columns:
-  #     field :id, :integer 
-  #     field :distance, :string 
-  #     field :co2, :string 
-  #     field :name, :string 
-  #     field :end_checkin_id, :integer         # Hidden 
-  #     field :created_at, :datetime 
-  #     field :updated_at, :datetime 
-  #     field :user_id, :integer         # Hidden 
-  #     field :timestamp, :datetime 
-  #     field :timezone, :string 
-  #     field :start_checkin_id, :integer         # Hidden 
+  #     field :id, :integer
+  #     field :distance, :string
+  #     field :co2, :string
+  #     field :name, :string
+  #     field :end_checkin_id, :integer         # Hidden
+  #     field :created_at, :datetime
+  #     field :updated_at, :datetime
+  #     field :user_id, :integer         # Hidden
+  #     field :timestamp, :datetime
+  #     field :timezone, :string
+  #     field :start_checkin_id, :integer         # Hidden
   #   # Sections:
   #   list do; end
   #   export do; end
@@ -197,17 +197,17 @@ RailsAdmin.config do |config|
 
   # config.model User do
   #   # Found associations:
-  #     field :checkins, :has_many_association 
-  #     field :legs, :has_many_association 
+  #     field :checkins, :has_many_association
+  #     field :legs, :has_many_association
   #   # Found columns:
-  #     field :id, :integer 
-  #     field :email, :string 
-  #     field :token, :string 
-  #     field :name, :string 
-  #     field :created_at, :datetime 
-  #     field :updated_at, :datetime 
-  #     field :foursquare_id, :string 
-  #     field :last_email_sent, :datetime 
+  #     field :id, :integer
+  #     field :email, :string
+  #     field :token, :string
+  #     field :name, :string
+  #     field :created_at, :datetime
+  #     field :updated_at, :datetime
+  #     field :foursquare_id, :string
+  #     field :last_email_sent, :datetime
   #   # Sections:
   #   list do; end
   #   export do; end
