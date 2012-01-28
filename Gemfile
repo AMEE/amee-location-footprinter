@@ -72,6 +72,11 @@ group :test do
 end
 
 
+group :cucumber do 
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+end
+
 
 gem "devise"
 gem 'rack-google_analytics', :require => "rack/google_analytics"
