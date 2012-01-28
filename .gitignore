@@ -1,4 +1,16 @@
 .bundle
-db/*.sqlite3
+
+# ignore db dumps
+db/*
+# ignore generated docs
+doc/*
+# ignore app specific config details
+foursquare.yml
+amee.yml
+
+# no logs or tmp files please
 log/*.log
 tmp/
+
+# ignore vagrant cruft
+.vagrant
