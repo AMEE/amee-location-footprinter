@@ -6,11 +6,8 @@ describe FootprintsController do
     use_vcr_cassette "fetching_checkins_and_carbon"
 
     before(:each) do
-      # this is a working API token for Chris Adams - it's passed into vcr,
-      # so it knows what response to provide
-      # for example, 
-      session["access_token"] = "GLW4QILQIABBXXTVOIR4FG25YXXPXVEMCF4V2A22GFBGUD2P"
-
+      # use a working API token from the yaml
+      session["access_token"] = Rails.configuration.foursquare_access_token
 
       # mock out calls to AMEE abstraction layer
       flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|

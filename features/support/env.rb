@@ -53,3 +53,16 @@ end
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
+
+# Use `prepend_before_filter` to stub out a the access_token to run features
+# without needing to do loads of Oauth2 setup stuff
+# http://stackoverflow.com/questions/1271788/session-variables-with-cucumber-stories
+class ApplicationController < ActionController::Base
+  if Rails.env.test?
+    prepend_before_filter :stub_current_user
+    def stub_current_user
+      session[:access_token] = Rails.configuration.foursquare_access_token
+      
+    end
+  end
+end

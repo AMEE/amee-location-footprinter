@@ -11,3 +11,5 @@ end
 Rails.configuration.foursquare_client_id = ENV['FOURSQUARE_CLIENT_ID'] || foursquare_api_config['client_id']
 Rails.configuration.foursquare_client_secret = ENV['FOURSQUARE_CLIENT_SECRET'] || foursquare_api_config['client_secret']
 Rails.configuration.foursquare_redirect_url = ENV['FOURSQUARE_REDIRECT_URL'] || foursquare_api_config['redirect_url']
+# if we want to refresh the responses, passing in the oauth2_code lets us fetch new responses
+Rails.configuration.foursquare_access_token = ENV['ACCESS_TOKEN'] || foursquare_api_config['access_token']

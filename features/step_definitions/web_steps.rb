@@ -1,3 +1,5 @@
 When /^I visit the home page$/ do
-  visit "/"
+  VCR.use_cassette("foursquare/home_page") do
+    visit "/"
+  end
 end

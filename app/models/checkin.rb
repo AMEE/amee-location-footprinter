@@ -94,7 +94,7 @@ class Checkin < ActiveRecord::Base
         parsed_checkins = []
         checkin_payload.each_with_index do |checkin, index|
 
-          if checkin.type == "venue"
+          if checkin.type == "checkin"
             c = Checkin.find_or_create_by_foursquare_id({
               :lat => checkin.json['type'] == 'venueless' ? checkin.json['location']['lat'] : checkin.venue.location.lat,
               :lon => checkin.json['type'] == 'venueless' ? checkin.json['location']['lng'] : checkin.venue.location.lng,
