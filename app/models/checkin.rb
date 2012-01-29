@@ -67,6 +67,7 @@ class Checkin < ActiveRecord::Base
   end
 
   def self.co2_for_flight(checkin1, checkin2)
+
     c = AMEE::DataAbstraction::CalculationSet.find(:calculations)[:route].begin_calculation
 
     c.choose(
@@ -97,51 +98,56 @@ class Checkin < ActiveRecord::Base
     parsed_checkins = []
     checkin_payload.each_with_index do |checkin, index|
 
-    if checkin.type == "checkin"
-      c = Checkin.find_or_create_by_foursquare_id({
-        :lat => checkin.json['type'] == 'venueless' ? checkin.json['location']['lat'] : checkin.venue.location.lat,
-        :lon => checkin.json['type'] == 'venueless' ? checkin.json['location']['lng'] : checkin.venue.location.lng,
-        :timestamp => checkin.created_at,
-        :timezone => checkin.timezone,
-        :venue_name => checkin.json['type'] == 'venueless' ? checkin.json['location']['name'] : checkin.venue.name,
-        :foursquare_id => checkin.id,
-        :icon => checkin.json['type'] == 'venueless' ? "https://foursquare.com/img/categories/none.png" : checkin.venue.icon,
-        :user_id =>  user.id
-      })
+      if checkin.type == "checkin"
+        c = Checkin.find_or_create_by_foursquare_id({
+          :lat => checkin.json['type'] == 'venueless' ? checkin.json['location']['lat'] : checkin.venue.location.lat,
+          :lon => checkin.json['type'] == 'venueless' ? checkin.json['location']['lng'] : checkin.venue.location.lng,
+          :timestamp => checkin.created_at,
+          :timezone => checkin.timezone,
+          :venue_name => checkin.json['type'] == 'venueless' ? checkin.json['location']['name'] : checkin.venue.name,
+          :foursquare_id => checkin.id,
+          :icon => checkin.json['type'] == 'venueless' ? "https://foursquare.com/img/categories/none.png" : checkin.venue.icon,
+          :user_id =>  user.id
+        })
 
-      parsed_checkins << checkin.id
-
-      end
-      
-      parsed_checkins.each_with_index do |checkin, index|
-        next if index 0
-        prev_checkin = checkin[index-1]
-        current_checkin = checkin[index]
-        create_leg_from_checkins(user, prev_checkin, current_checkin)
+        parsed_checkins << c
 
       end
-
     end
 
+    # binding.pry
+    parsed_checkins.each_with_index do |checkin, index|
+      next if index == 0
+      # binding.pry
+      prev_checkin = checkin
+      current_checkin = parsed_checkins[index-1]  
+        
+      create_leg_from_checkins(user, prev_checkin, current_checkin)
+    end
+
+    
+
   rescue => err
+    binding.pry
     raise CheckinParseError
   end
 
-  def create_leg_from_checkins(user, prev_checkin, current_checkin)
+  def self.create_leg_from_checkins(user, prev_checkin, current_checkin)
 
     # flights need different treatment, because we use a different algorithm
     # for calculating the CO2
+
+    distance = distance_between_points(prev_checkin, current_checkin)
 
     l = user.legs.find_or_create_by_start_checkin_id_and_end_checkin_id({
       :start_checkin_id => prev_checkin.id,
       :end_checkin_id => current_checkin.id,
       :distance => distance,
-      :co2 => co2_for_flight,
+      :co2 => 0,
+      :name => "#{prev_checkin.venue_name} to #{current_checkin.venue_name}"
       :timestamp => current_checkin.timestamp,
       :timezone => current_checkin.timezone,
     })
-
-    d "#{prev_checkin.venue_name} to #{current_checkin.venue_name}"
 
   end
 
@@ -199,5 +205,6 @@ class Checkin < ActiveRecord::Base
 
 end
 
+class CheckinParseError < Exception; end
 class DistanceError < Exception ;end
 class FlightCalculationError < Exception ;end

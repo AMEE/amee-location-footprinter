@@ -5,7 +5,7 @@ Alf::Application.routes.draw do
   match 'footprints/user' => 'footprints#user'
   match 'footprints/checkins' => 'footprints#checkins'
   match 'footprints/thanks' => 'footprints#thanks'
-  match 'footprints/mine(/:week_end_date)' => 'footprints#mine', :as => :footprints_mine
+
 
   match 'users/new' => 'users#new'
   match 'users/callback' => 'users#callback'
@@ -14,6 +14,10 @@ Alf::Application.routes.draw do
     collection do
       get 'callback'
     end
+  end
+
+  resources :legs do
+    # match 'footprints/mine(/:week_end_date)' => 'footprints#mine', :as => :footprints_mine    
   end
 
   resources :checkins

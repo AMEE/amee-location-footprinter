@@ -1,12 +1,6 @@
-<style type="text/css" media="screen">
-  .list_checkins{
-    border:1px solid red;
-  }
-</style>
-
 <h3>Checkins between <%= @given_week_before.strftime("%d %b %Y") %> and <%= @given_week.strftime("%d %b %Y") %></h3>
-<%= link_to "back a week", "/footprints/mine/#{@given_week_before.strftime("%Y-%m-%d")}" %>
-<%= link_to "forward a week", "/footprints/mine/#{(@given_week+1.week).strftime("%Y-%m-%d")}" %>
+<%= link_to "back a week", "/legs/#{@given_week_before.strftime("%Y-%m-%d")}" %>
+<%= link_to "forward a week", "/legs/#{(@given_week+1.week).strftime("%Y-%m-%d")}" %>
 
 
 <ul class="span16 list_checkins">
