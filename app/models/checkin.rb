@@ -128,7 +128,7 @@ class Checkin < ActiveRecord::Base
     
 
   rescue => err
-    binding.pry
+    binding.pry if Rails.env.development?
     raise CheckinParseError
   end
 
@@ -144,7 +144,7 @@ class Checkin < ActiveRecord::Base
       :end_checkin_id => current_checkin.id,
       :distance => distance,
       :co2 => 0,
-      :name => "#{prev_checkin.venue_name} to #{current_checkin.venue_name}"
+      :name => "#{prev_checkin.venue_name} to #{current_checkin.venue_name}",
       :timestamp => current_checkin.timestamp,
       :timezone => current_checkin.timezone,
     })

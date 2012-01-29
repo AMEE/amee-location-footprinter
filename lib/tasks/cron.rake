@@ -34,3 +34,35 @@ task :cron => :environment do
   d {borked_users}
 
 end
+
+
+desc "Update journey legs to have names for editing"
+task :update_leg_names => :environment do
+  Leg.find_each(:batch_size => 200) do |leg|
+    leg.name = "#{leg.start_checkin.venue_name} to #{leg.end_checkin.venue_name}"
+    transport_method(leg)
+    leg.save!
+    d leg.name
+  end
+end
+
+
+def transport_method(leg)
+      circumference_of_earth = 40075 # to the nearest km
+
+  case leg.distance.to_f
+  when 0..1
+    leg.mode_of_transport = "walking"
+  when 1..200
+    leg.mode_of_transport = "car"
+  when 200..1000
+    leg.mode_of_transport = "domestic_flight"
+  when 1000..3000
+    leg.mode_of_transport = "short haul_flight"
+  when 3000...circumference_of_earth
+    leg.mode_of_transport = "long haul_flight"
+  else
+    leg.mode_of_transport = "long haul_flight"
+  end
+  leg
+end

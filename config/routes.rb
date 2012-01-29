@@ -17,7 +17,7 @@ Alf::Application.routes.draw do
   end
 
   resources :legs do
-    # match 'footprints/mine(/:week_end_date)' => 'footprints#mine', :as => :footprints_mine    
+    # match '(/:week_end_date)' => 'legs#index', :as => :legs    
   end
 
   resources :checkins

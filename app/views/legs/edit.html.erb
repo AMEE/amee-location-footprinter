@@ -1,0 +1,47 @@
+
+<%= form_for(@leg) do |f| %>
+  <% if @leg.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@leg.errors.count, "error") %> prohibited this checkin from being saved:</h2>
+
+      <ul>
+      <% @leg.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :distance %><br />
+    <%= f.text_field :distance %>
+  </div>
+  <div class="field">
+    <%= f.label :timestamp %><br />
+    <%= f.datetime_select :timestamp %>
+  </div>
+  <div class="field">
+    <%= f.label :mode_of_transport %><br />
+    <%
+    calc_options = [
+      ["Walking", "walking"],
+      ["Cycling", "cycling"]
+    ]
+    AMEE::DataAbstraction::CalculationSet.find(:calculations).calculations.values.each do |val|
+      next if val.name == "Route"
+      calc_options << [val.name, val.label]
+    end
+
+
+    %>
+    <%= f.select :mode_of_transport, calc_options %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
