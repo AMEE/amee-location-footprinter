@@ -8,5 +8,4 @@ Feature: Editing my journeys
   @wip
   Scenario: Seeing my own checkins
     And sign in via Foursquare
-    When I visit the home page
     Then I should see a list of checkins

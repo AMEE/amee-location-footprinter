@@ -7,5 +7,6 @@ FactoryGirl.define do
       name "optional named journey"
       start_checkin_id "4e8b71d5d3e303e9db27e45f"
       end_checkin_id "4e86100c30f873b8fa4f3b83"
+      mode_of_transport "car"
     end
 end
