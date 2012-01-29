@@ -7,5 +7,5 @@ class Leg < ActiveRecord::Base
   belongs_to :end_checkin, :class_name => "Checkin"
 
   belongs_to :user
-  validates :co2, :distance, :presence => true
+  validates :co2, :distance, :start_checkin, :end_checkin, :presence => true
 end
