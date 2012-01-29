@@ -3,8 +3,6 @@ require 'spec_helper'
 describe Leg do
 
   # set up a user, then two checkins then a single leg
-  # TODO why is this error occuring here? These methods should surely be availble if 
-  # they're used in Checkin#calculate_carbon_and_send_mail to create new legs
 
   it "should have a beginning checkin" do
     # pending
@@ -31,6 +29,21 @@ describe Leg do
     @leg = FactoryGirl.build(:leg, :name => "")
     @leg.save
     @leg.should_not be_valid
-
   end
+
+  it "should have a co2 reading" do
+    @leg = FactoryGirl.build(:leg, :co2 => nil)
+    @leg.save
+    @leg.should_not be_valid
+  end
+
+  it "should have a mode of transport" do
+    @leg = FactoryGirl.build(:leg, :mode_of_transport => nil)
+    @leg.save
+    @leg.should_not be_valid
+  end
+
+
+
+
 end
