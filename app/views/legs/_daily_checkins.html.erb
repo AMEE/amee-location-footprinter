@@ -1,17 +1,18 @@
-  <% unless legs.blank? %>
-<li>
+<% unless legs.blank? %>
+  <li>
 
-  <h4><%= day %></h4>
-  <ul>
+    <h4><%= day %></h4>
+    <ul>
 
-    <% legs.each do |leg| %>
-    <li class="row">
-        <span><%= leg.name %></span>
-        <span><%= number_with_precision(leg.distance, :precision => 2) %></span>
-        <span><%= number_with_precision(leg.co2, :precision => 2) %> kg</span>
-        <span><%= link_to "Edit this journey", edit_leg_path(leg) %></span>
-    </li>
-    <% end %>
-  </ul>
-</li>
-  <% end %>
+      <% legs.each do |leg| %>
+      <li class="row">
+          <span><%= leg.name %></span>
+          <span><%= number_with_precision(leg.distance, :precision => 2) %></span>
+          <span><%= number_with_precision(leg.co2, :precision => 2) %> kg</span>
+          <span><%= link_to "Edit this journey", edit_leg_path(leg) %></span>
+      </li>
+      <% end %>
+
+    </ul>
+  </li>
+<% end %>

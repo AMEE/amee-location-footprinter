@@ -5,22 +5,19 @@ class LegsController < ApplicationController
   def index
     u = User.find_by_foursquare_id(current_user.id)
     begin
-      d params
-      @given_week = Time.parse(params[:week_end_date])
+      @chosen_week = Time.parse(params[:chosen_week])
     rescue
-      d params
-      @given_week = Time.now
+      @chosen_week = Time.now
     end
 
-      @given_week_before = @given_week-1.week
-      @legs = u.legs.where(:timestamp => @given_week_before..@given_week)
-      @sunday_legs = u.legs.where(:timestamp => @given_week-1.day..@given_week)
-      @saturday_legs = u.legs.where(:timestamp => @given_week-2.day..@given_week-1.day)
-      @friday_legs = u.legs.where(:timestamp => @given_week-3.day..@given_week-2.day)
-      @thursday_legs = u.legs.where(:timestamp => @given_week-4.day..@given_week-3.day)
-      @wednesday_legs = u.legs.where(:timestamp => @given_week-5.day..@given_week-4.day)
-      @tuesday_legs = u.legs.where(:timestamp => @given_week-6.day..@given_week-5.day)
-      @monday_legs = u.legs.where(:timestamp => @given_week-7.day..@given_week-6.day)
+    @legs = u.legs.where(:timestamp => @chosen_week.beginning_of_week..@chosen_week.end_of_week)
+    
+    # Filter days into keys in a hash for the template
+    @days = {};
+    ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].each do |day|
+      @days[day.downcase] = @legs.select { |l| l.day_is? day }
+    end
+      
   end
 
   def show
@@ -32,5 +29,7 @@ class LegsController < ApplicationController
     u = User.find_by_foursquare_id(current_user.id)
     @leg = u.legs.where(:id => params[:id]).first
   end
+
+  private
 
 end

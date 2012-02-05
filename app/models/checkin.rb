@@ -15,8 +15,6 @@ class Checkin < ActiveRecord::Base
 
     distance = Haversine.distance(checkin1.lat.to_f, checkin1.lon.to_f, checkin2.lat.to_f, checkin2.lon.to_f)
     distance
-
-
   end
 
   def self.transport_method_image(distance)
@@ -68,7 +66,9 @@ class Checkin < ActiveRecord::Base
 
   def self.co2_for_flight(checkin1, checkin2)
 
-    c = AMEE::DataAbstraction::CalculationSet.find(:calculations)[:route].begin_calculation
+    c = AMEE::DataAbstraction::CalculationSet.find(:route)[:route].begin_calculation
+
+    c = AMEE::DataAbstraction::CalculationSet.find(:route)[:route].begin_calculation
 
     c.choose(
       :lat1 => checkin1.lat.to_f,
@@ -115,10 +115,8 @@ class Checkin < ActiveRecord::Base
       end
     end
 
-    # binding.pry
     parsed_checkins.each_with_index do |checkin, index|
       next if index == 0
-      # binding.pry
       prev_checkin = checkin
       current_checkin = parsed_checkins[index-1]  
         
@@ -142,7 +140,7 @@ class Checkin < ActiveRecord::Base
     l = user.legs.find_or_create_by_start_checkin_id_and_end_checkin_id({
       :start_checkin_id => prev_checkin.id,
       :end_checkin_id => current_checkin.id,
-      :distance => distance,
+      :distance => distance.to_km,
       :co2 => 0,
       :name => "#{prev_checkin.venue_name} to #{current_checkin.venue_name}",
       :timestamp => current_checkin.timestamp,
@@ -171,13 +169,13 @@ class Checkin < ActiveRecord::Base
       if index > 1
         prev_checkin = Checkin.find_by_foursquare_id(checkins[index-1].id)
       if prev_checkin == nil
-        raise Exception "can't find Checkin for given foursquare id"
+        raise CheckinParseError "can't find Checkin for given foursquare id"
       end
 
       current_checkin = Checkin.find_by_foursquare_id(checkins[index].id)
 
       if current_checkin == nil
-        raise Exception "can't find Checkin for given foursquare id"
+        raise CheckinParseError "can't find Checkin for given foursquare id"
       end
 
       Checkin.calculate_carbon(user, current_checkin, prev_checkin)
@@ -193,7 +191,9 @@ class Checkin < ActiveRecord::Base
   FootprintMailer.footprint_email(user, @legs, app_url).deliver!
 
   rescue => err
-    raise Exception "couldn't delegate mail to delayed job"
+    binding.pry if Rails.env.development?
+    raise "couldn't delegate mail to delayed job"
+    
   end
 
   # When debugging, it may be useful to to comment out this line,
@@ -205,6 +205,7 @@ class Checkin < ActiveRecord::Base
 
 end
 
+class MailDelegationError < Exception; end
 class CheckinParseError < Exception; end
 class DistanceError < Exception ;end
 class FlightCalculationError < Exception ;end

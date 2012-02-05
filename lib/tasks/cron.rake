@@ -46,6 +46,15 @@ task :update_leg_names => :environment do
   end
 end
 
+desc "Update legs make sure all distances are in km"
+task :update_leg_distances => :environment do
+  Leg.find_each(:batch_size => 200) do |leg|
+    leg.recalculate_distance!
+    leg.save!
+  end
+
+end
+
 
 def transport_method(leg)
       circumference_of_earth = 40075 # to the nearest km

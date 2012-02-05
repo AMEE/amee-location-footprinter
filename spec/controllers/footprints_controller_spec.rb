@@ -3,7 +3,7 @@ require 'spec_helper'
 describe FootprintsController do
 
   describe "GET 'user'" do
-    use_vcr_cassette "fetching_checkins_and_carbon"
+    use_vcr_cassette "fetching_checkins_and_carbon", :record => :once
 
     before(:each) do
       # use a working API token from the yaml
@@ -39,11 +39,13 @@ describe FootprintsController do
       # start the mocked out sign in process
       get 'user'
       User.count.should eq 1
-      response.should redirect_to footprints_mine_path
+      response.should redirect_to legs_path
     end
 
     it "lets people see checkins from last week" do
       get 'user'
+
+      # 
 
       # add timecop to set the date for the fixtures
       # check if they're displayed

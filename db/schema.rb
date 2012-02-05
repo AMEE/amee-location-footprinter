@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120129050333) do
+ActiveRecord::Schema.define(:version => 20120131152843) do
 
   create_table "calculations", :force => true do |t|
     t.string   "profile_uid"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20120129050333) do
     t.datetime "timestamp"
     t.string   "timezone"
     t.integer  "start_checkin_id"
-    t.string   "mode_of_transport"
+    t.string   "mode_of_transport", :default => "pending"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(:version => 20120129050333) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "foursquare_id"
+    t.integer  "foursquare_id"
     t.datetime "last_email_sent"
   end
 

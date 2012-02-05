@@ -13,19 +13,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.label :name %>
+    <%= f.text_field :name, :class => "xlInput" %>
   </div>
   <div class="field">
-    <%= f.label :distance %><br />
+    <%= f.label :distance %>
     <%= f.text_field :distance %>
   </div>
   <div class="field">
-    <%= f.label :timestamp %><br />
+    <%= f.label :timestamp %>
     <%= f.datetime_select :timestamp %>
   </div>
   <div class="field">
-    <%= f.label :mode_of_transport %><br />
+    <%= f.label :mode_of_transport %>
     <%
     calc_options = [
       ["Walking", "walking"],
@@ -35,13 +35,11 @@
       next if val.name == "Route"
       calc_options << [val.name, val.label]
     end
-
-
     %>
     <%= f.select :mode_of_transport, calc_options %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update journey details", :class => "btn primary"%>
   </div>
 <% end %>

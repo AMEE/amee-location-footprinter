@@ -8,4 +8,20 @@ class Leg < ActiveRecord::Base
 
   belongs_to :user
   validates :co2, :distance, :start_checkin, :end_checkin, :mode_of_transport, :presence => true
+
+  # Convenience function to check if a journey leg was on a given day
+  # used to help choose from a week of journey legs
+  # @param String day_name "Saturday"
+  def day_is? day_name
+    self.timestamp.strftime("%A")  == day_name
+  end
+
+  # update the distance, to allow for updating of distance
+  # between checkins
+  def recalculate_distance!
+    self.distance = Checkin.distance_between_points(start_checkin, end_checkin).to_km
+  end
+
+  private
+
 end

@@ -10,5 +10,5 @@ When /^sign in via Foursquare$/ do
 end
 
 Then /^I should see my name$/ do
-  page.document.has_content? "Chris"
+  page.has_content? "Chris"
 end

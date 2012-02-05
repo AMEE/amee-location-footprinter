@@ -112,6 +112,28 @@ a:hover {
 }
 
 
+/* ======================== */
+/* = Form Style Overrides = */
+/* ======================== */
+
+form.edit_leg{
+  margin-top:18px;
+  }1
+
+div.field{
+  clear: left;
+  margin-top:6px;
+}
+
+.field label {
+  margin-right: 12px;
+}
+
+div.actions{
+  background:none;
+}
+
+
 #bg_texture div.container{
   margin-top:48px;
 }

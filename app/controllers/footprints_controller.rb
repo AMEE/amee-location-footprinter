@@ -23,7 +23,7 @@ class FootprintsController < ApplicationController
     app_url = request.host_with_port || ENV['APP_URL'] 
     # let delayed job take care of the processing
     Checkin.calculate_carbon_and_send_mail(u, checkins, app_url)
-    binding.pry
+
     if u.legs.blank?
       redirect_to footprints_thanks_url
     else
