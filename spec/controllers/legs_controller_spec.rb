@@ -19,7 +19,7 @@ describe LegsController do
       foursquare_user = foursquare.users.find('self')
 
       u = User.find_or_create_by_foursquare_id(foursquare_user.id.to_i)
-
+      @user = u
       u.update_attributes!({
         :email => foursquare_user.email,
         :name => foursquare_user.name,
@@ -57,13 +57,20 @@ describe LegsController do
 
       assigns[:legs].should_not be_empty
       # A day with checkins should have corresponding entries assigned…
-      assigns[:legs][:saturday].should_not be_empty
+      assigns[:days][:saturday].should_not be_empty
       # And a day without should not.
-      assigns[:legs][:monday].should be_empty
+      assigns[:days][:monday].should be_empty
     end
 
-    it "shows all a single journey's detail view" do
-      pending
+    it "shows a single journey's detail view" do
+      # as long as we're visiting one leg,
+      # it doesn't matter which one
+      get "show", :id => Leg.first.id
+
+      response.should be_successful
+      assigns.should have_key :leg
+      assigns[:leg].should be_a Leg
+
 
       
     end
