@@ -80,9 +80,27 @@ describe Leg do
       # We expect Checkin.carbion_for to be called, because it's
       # a callback.
       # We don't want to really hit the API, so we're mocking this call.
-      flexmock('Checkin').should_receive(:carbon_for).once
+
+      # this doesn't work, because we're not directly calling methods on it,
+      # so 
+      a_full_mock = flexmock('Checkin')
+      a_full_mock.should_receive(:carbon_for).once.and_return(0)
       
-      # We al
+      d { a_full_mock.object_id }
+      d { a_full_mock.class }      
+      
+      # this DOES work, assuming because it's making changes to a real object
+      # that exists outside the scope of this example.
+      a_partial_mock = flexmock(Checkin)
+      
+      a_partial_mock.should_receive(:carbon_for).once.and_return(0)
+      
+      d { a_partial_mock.object_id }
+      d { a_partial_mock.class }
+
+      binding.pry
+
+      # We all
       flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
         mock.should_receive(:choose).and_return(nil)
         mock.should_receive(:calculate!).and_return(nil)
@@ -90,7 +108,9 @@ describe Leg do
       end
 
       @leg.mode_of_transport.should == "car"
+      # binding.pry
       @leg.update_attributes({ :mode_of_transport => "walking" })
+      # binding.pry
       @leg.save!
 
       
