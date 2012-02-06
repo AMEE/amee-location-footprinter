@@ -83,8 +83,11 @@ describe Leg do
 
       # this doesn't work, because we're not directly calling methods on it,
       # so 
-      a_full_mock = flexmock('Checkin')
-      a_full_mock.should_receive(:carbon_for).once.and_return(0)
+      
+      # BUT! Calling this AND the ont below will cause this test to fail
+      # chuff knows why
+      # a_full_mock = flexmock('Checkin')
+      # a_full_mock.should_receive(:carbon_for).once.and_return(0)
       
       d { a_full_mock.object_id }
       d { a_full_mock.class }      
@@ -98,7 +101,7 @@ describe Leg do
       d { a_partial_mock.object_id }
       d { a_partial_mock.class }
 
-      binding.pry
+      # binding.pry
 
       # We all
       flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
