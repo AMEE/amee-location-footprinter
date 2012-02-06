@@ -11,13 +11,13 @@ class LegsController < ApplicationController
     end
 
     @legs = u.legs.where(:timestamp => @chosen_week.beginning_of_week..@chosen_week.end_of_week)
-    
+
     # Filter days into keys in a hash for the template
     @days = {};
     ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].each do |day|
       @days[day.downcase] = @legs.select { |l| l.day_is? day }
     end
-      
+
   end
 
   def show

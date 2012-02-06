@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/collectiveidea/delayed_job.git
-  revision: 8efc2aa99e8b2e3f8f77ee26cb29ac83088a52a3
+  revision: a7e72bcca12ac96684638c71046c060000003d0c
   branch: v2.1
   specs:
     delayed_job (2.1.4)
@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/sferik/rails_admin.git
-  revision: 1ccd2fabce712ca1cb154fd17fbd71d6a8a305e0
+  revision: ed0dcd1b0ebdbb0507c3963097a6d496d8f9fee0
   specs:
     rails_admin (0.0.1)
       bbenezech-nested_form (~> 0.0)
@@ -116,6 +116,8 @@ GEM
       railties (~> 3.1)
       warden (~> 1.1)
     diff-lcs (1.1.3)
+    domain_name (0.5.2)
+      unf (~> 0.0.3)
     erubis (2.7.0)
     execjs (1.3.0)
       multi_json (~> 1.0)
@@ -158,15 +160,24 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mechanize (2.1)
+      domain_name (~> 0.5, >= 0.5.1)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.3, >= 2.3.2)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (~> 0.0, >= 0.0.9)
     method_source (0.7.0)
     mime-types (1.17.2)
     multi_json (1.0.4)
-    net-http-spy (0.2.1)
+    net-http-digest_auth (1.2)
+    net-http-persistent (2.4)
     nokogiri (1.4.7)
+    ntlm-http (0.1.1)
     orm_adapter (0.0.6)
     pg (0.12.2)
     polyglot (0.3.3)
-    pry (0.9.8)
+    pry (0.9.8.1)
       coderay (~> 1.0.5)
       method_source (~> 0.7)
       slop (>= 2.4.3, < 3)
@@ -210,11 +221,11 @@ GEM
       thor (~> 0.14.6)
     rake (0.9.2.2)
     rb-appscript (0.6.1)
-    rb-fsevent (0.4.3.1)
+    rb-fsevent (0.9.0)
     rdoc (3.12)
       json (~> 1.4)
     redgreen (1.2.2)
-    remotipart (1.0.1)
+    remotipart (1.0.2)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -229,7 +240,7 @@ GEM
       railties (~> 3.0)
       rspec (~> 2.6.0)
     rubyzip (0.9.5)
-    sass (3.1.12)
+    sass (3.1.13)
     sass-rails (3.1.5)
       actionpack (~> 3.1.0)
       railties (~> 3.1.0)
@@ -258,6 +269,9 @@ GEM
     typhoeus (0.3.3)
       mime-types
     tzinfo (0.3.31)
+    unf (0.0.4)
+      unf_ext
+    unf_ext (0.0.4)
     uuidtools (2.1.2)
     vcr (1.11.3)
     warden (1.1.0)
@@ -265,9 +279,10 @@ GEM
     webmock (1.7.10)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
+    webrobots (0.0.13)
     xpath (0.1.4)
       nokogiri (~> 1.3)
-    yard (0.7.4)
+    yard (0.7.5)
 
 PLATFORMS
   ruby
@@ -293,7 +308,7 @@ DEPENDENCIES
   jquery-rails (~> 1.0.16)
   letter_opener!
   log_buddy
-  net-http-spy
+  mechanize
   pg
   pry
   pry-doc

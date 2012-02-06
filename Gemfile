@@ -18,6 +18,8 @@ gem 'haversine'
 gem 'delayed_job', :git => 'git://github.com/collectiveidea/delayed_job.git', :branch => "v2.1"
 
 gem 'bootstrap-sass'
+gem 'mechanize'
+
 
 # relevant amee gems
 gem 'amee'
@@ -44,20 +46,27 @@ group :development, :test do
   gem 'sqlite3'
   gem 'sqlite3-ruby', :require => 'sqlite3'
   gem 'capybara'
-  gem 'net-http-spy'
+  # gem 'net-http-spy'
+
   gem 'guard'
   gem 'guard-rspec'
   # only install the fsevent gem for guard, if we're on a mac
   gem 'rb-fsevent',   :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'growl_notify', :require => false if RUBY_PLATFORM =~ /darwin/i
+
+  # for investigating errors
   gem 'pry'
   gem 'pry-doc'
-  gem 'log_buddy'
+
   # Preview email in the browser instead of sending it.
   # We're using a different fork because ryanb's one
   # has a small error reported here, with a pending pull request
   # https://github.com/ryanb/letter_opener/pull/15
   gem "letter_opener", :git => "git://github.com/pcg79/letter_opener.git"
+  # gem "vagrant", '~> 0.9.0'
+  # setting up mechanize for form manipulation
+  # gem 'mechanize'
+
 end
 
 group :test do

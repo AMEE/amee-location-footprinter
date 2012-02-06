@@ -60,13 +60,19 @@ class Checkin < ActiveRecord::Base
   end
 
   def self.carbon_for(transport, distance)
+
+    d "I'M BEING CALLED, DAMMIT! LOOK AT THE METHOD BEING CALLED!"
+    d { self.class }
+    d { __method__ }
+
+
     return 0 if transport == 'walking'
-    Checkin.calculate_co2e_for_distance(distance, Calculations[transport.to_sym])
+    # binding.pry
+    d {AMEE::DataAbstraction::CalculationSet.find('calculations').class }
+    Checkin.calculate_co2e_for_distance( distance, AMEE::DataAbstraction::CalculationSet.find('calculations').calculations[transport.to_sym] )
   end
 
   def self.co2_for_flight(checkin1, checkin2)
-
-    c = AMEE::DataAbstraction::CalculationSet.find(:route)[:route].begin_calculation
 
     c = AMEE::DataAbstraction::CalculationSet.find(:route)[:route].begin_calculation
 
@@ -81,8 +87,14 @@ class Checkin < ActiveRecord::Base
   end
 
   def self.calculate_co2e_for_distance(distance, calculation_prototype)
+    
+    d {calculation_prototype.class}
 
     c = calculation_prototype.begin_calculation
+
+    d {c.class}
+
+    # binding.pry
 
     c.choose(
     :amount => distance,

@@ -43,32 +43,60 @@ describe Leg do
     @leg.should_not be_valid
   end
 
-  it "allows recalculations" do
-    @checkin1 = FactoryGirl.create(
-      :checkin, 
-      :lat => "51.5302391808239", 
-      :lon => "-0.190415382385254", 
-      :id => 10
-    )
-    @checkin2 = FactoryGirl.create(
-      :checkin, :lat => "51.5917302346968", 
-      :lon => "-0.069644669476303", 
-      :id => 11,
-      :foursquare_id => "4dde05bc1f6e0369473a10fb"
-    )
-    @leg = FactoryGirl.create(:leg, 
-      :mode_of_transport => "car", 
-      :end_checkin => @checkin1, 
-      :start_checkin => @checkin2, 
-      :distance => "not set"
-    )
-    @leg.distance.should == "not set"
-    @leg.recalculate_distance!
-    @leg.distance.should be_within(0.1).of 10.7912288632373
+  context "updating attributes that require extra calculation" do 
+
+    before(:each) do
+
+      @checkin1 = FactoryGirl.create(
+        :checkin, 
+        :lat => "51.5302391808239", 
+        :lon => "-0.190415382385254", 
+        :id => 10
+      )
+      @checkin2 = FactoryGirl.create(
+        :checkin, :lat => "51.5917302346968", 
+        :lon => "-0.069644669476303", 
+        :id => 11,
+        :foursquare_id => "4dde05bc1f6e0369473a10fb"
+      )
+      @leg = FactoryGirl.create(:leg, 
+        :mode_of_transport => "car", 
+        :end_checkin => @checkin1, 
+        :start_checkin => @checkin2, 
+        :distance => "not set"
+      )
+    end
+
+    it "allows recalculations of distance" do
+
+      @leg.distance.should == "not set"
+      @leg.recalculate_distance!
+      @leg.distance.should be_within(0.1).of 10.7912288632373
+
+    end
+
+    it "recalculates CO2e if journey methods change" do
+
+      # We expect Checkin.carbion_for to be called, because it's
+      # a callback.
+      # We don't want to really hit the API, so we're mocking this call.
+      flexmock('Checkin').should_receive(:carbon_for).once
+      
+      # We al
+      flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
+        mock.should_receive(:choose).and_return(nil)
+        mock.should_receive(:calculate!).and_return(nil)
+        mock.should_receive(:[]).with(:co2e).and_return(flexmock(:value => 42))
+      end
+
+      @leg.mode_of_transport.should == "car"
+      @leg.update_attributes({ :mode_of_transport => "walking" })
+      @leg.save!
+
+      
+    end
 
   end
-
-
 
 
 end
