@@ -75,7 +75,7 @@ Click the name of your project and you'll be able to fetch the username and pass
 
 ##### Set up your database:
 
-Create your database, then run your migrations `rake db:migrate` or simply call `rake db:schema:load` to skip all the updates.
+Create your database, using `rake db:create`, then run your migrations `rake db:migrate` or simply call `rake db:schema:load` to skip all the updates.
 
 
 == REQUIREMENTS

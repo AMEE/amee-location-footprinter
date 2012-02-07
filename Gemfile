@@ -66,7 +66,7 @@ group :development, :test do
   # gem "vagrant", '~> 0.9.0'
   # setting up mechanize for form manipulation
   # gem 'mechanize'
-  gem 'thin'
+
 end
 
 group :test do

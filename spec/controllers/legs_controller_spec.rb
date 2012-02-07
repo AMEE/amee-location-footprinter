@@ -14,7 +14,6 @@ describe LegsController do
       # setup our user via foursquare here, so the next request doesn't
       # 302 you around
       session["access_token"] = Rails.configuration.foursquare_access_token
-
       foursquare = Foursquare::Base.new(session[:access_token])
       foursquare_user = foursquare.users.find('self')
 
@@ -28,7 +27,6 @@ describe LegsController do
         :token => session[:access_token]
       })
 
-      
       # build some checkins - if user has reached this point, they already to have them
       # build checkins
 
@@ -58,13 +56,11 @@ describe LegsController do
       get "index"
 
       response.should be_successful
-
+      
       assigns[:legs].should_not be_empty
       # A day with checkins should have corresponding entries assigned…
-      assigns[:days][:saturday].should_not be_empty
       assigns[:days][:monday].should_not be_empty
       # And a day without should not.
-      assigns[:days][:monday].should be_empty
       assigns[:days][:wednesday].should be_empty
     end
 
@@ -75,10 +71,13 @@ describe LegsController do
 
       response.should be_successful
       assigns.should have_key :leg
-      assigns[:leg].should be_a Leg
+      assigns[:leg].should be_a Leg  
+    end
+
+    it "lets you update a journey's distance and travel method " do
+      put "update", :id => Leg.first.id
 
 
-      
     end
 
   end
