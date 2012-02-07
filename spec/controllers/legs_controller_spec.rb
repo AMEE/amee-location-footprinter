@@ -32,6 +32,10 @@ describe LegsController do
       # build some checkins - if user has reached this point, they already to have them
       # build checkins
 
+      # set time, then freeze it with TimeCop
+      frozen_time = Time.local(2012, 2, 7, 22, 52, 0)
+      Timecop.freeze(frozen_time)
+
       @first_checkin  = FactoryGirl.create(:checkin, :user => u, :foursquare_id => new_uuid, :timestamp => 1.day.ago)
       @second_checkin = FactoryGirl.create(:checkin, :user => u, :foursquare_id => new_uuid, :timestamp => 23.hours.ago)
       @third_checkin  = FactoryGirl.create(:checkin, :user => u, :foursquare_id => new_uuid, :timestamp => 47.hours.ago)
@@ -58,8 +62,10 @@ describe LegsController do
       assigns[:legs].should_not be_empty
       # A day with checkins should have corresponding entries assigned…
       assigns[:days][:saturday].should_not be_empty
+      assigns[:days][:monday].should_not be_empty
       # And a day without should not.
       assigns[:days][:monday].should be_empty
+      assigns[:days][:wednesday].should be_empty
     end
 
     it "shows a single journey's detail view" do
