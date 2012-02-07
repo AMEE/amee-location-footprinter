@@ -38,14 +38,13 @@ describe Checkin do
     @checkin.should_not be_valid
   end
 
-  context "fetching CO2 readings"
+  context "fetching CO2 readings when creating legs"
 
   it "should calculate distances up to 1km based on CO2 from walking" do
-      # Checkin.carbon_for('walking', distance)
       # Mock out the model, so we check that we're making the correct calls
       # to the AMEE abstraction layer
       distance = 0.75
-      flexmock('Checkin').should_receive(:carbon_for).with(:walk, 0.5)
+      flexmock(Checkin).should_receive(:carbon_for).with("walking", 0.75).once.and_return(0)
       Checkin.co2_for_km(distance).should eq 0
   end
 
@@ -59,83 +58,37 @@ describe Checkin do
     distance = Checkin.distance_between_points(checkin1, checkin2)
     distance.to_kilometers.should be_within(0.1).of(4.59684510626154)
 
-    # Checkin.carbon_for('walking', distance)
     # Mock out the model, so we check that we're making the correct calls
     # to the AMEE abstraction layer
-    flexmock('Checkin').should_receive(:carbon_for).with(:car, distance)
-
-    flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
-      mock.should_receive(:choose).and_return(nil)
-      mock.should_receive(:calculate!).and_return(nil)
-      mock.should_receive(:[]).with(:co2e).and_return(flexmock(:value => 42))
-    end
+    flexmock(Checkin).should_receive(:carbon_for).with("car", distance.to_kilometers).once.and_return(42)
 
     Checkin.co2_for_km(distance.to_km).should eq 42
   end
 
+  # TODO refactor these tests, to remove duplicated code
+  # TODO make sure the short haul flight is calculated on quantity, not distance
+
   it "should calculate distances of between 200km and 1000km based on CO2 for domestic flights" do
-
-    checkin1 = FactoryGirl.build(:checkin, :lat => "51.514667", :lon => "-0.136047") # Off Broadway Bar, London
-    checkin2 = FactoryGirl.build(:checkin, :lat => "51.502557", :lon => "-0.07253941") # The Marksman Pub, London  
-
     distance = 300
-  
-
-    flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
-      mock.should_receive(:choose).and_return(nil)
-      mock.should_receive(:calculate!).and_return(nil)
-      # arbitrary value
-      mock.should_receive(:[]).with(:lifeCycleCO2e).and_return(flexmock(:value => 98))
-    end
-
-    Checkin.co2_for_flight(checkin1,checkin2).should eq 98
-
+    flexmock(Checkin).should_receive(:carbon_for).with("domestic_flight", distance).once.and_return(300)
+    Checkin.co2_for_km(distance).should eq 300
   end
   
-  it "should calculate distances upto 1km based on CO2 based on CO2 for short_haul flights" do
-
+  it "should calculate distances upto 1km based on CO2 for short_haul flights" do
     distance = 2000
-    flexmock('Checkin').should_receive(:carbon_for).with(:short_haul_flight, distance)
-
-    flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
-      mock.should_receive(:choose).and_return(nil)
-      mock.should_receive(:calculate!).and_return(nil)
-      # arbitrary value
-      mock.should_receive(:[]).with(:co2e).and_return(flexmock(:value => 300))
-    end
-
+    flexmock(Checkin).should_receive(:carbon_for).with("short_haul_flight", distance).once.and_return(300)
     Checkin.co2_for_km(distance).should eq 300
-
   end
 
   it "should calculate distances of more than 3000km based on CO2 from long haul flights" do
-
     # fetch the distance
     distance = 4000    
-    flexmock('Checkin').should_receive(:carbon_for).with(:long_haul_flight, distance)
-
-    flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
-      mock.should_receive(:choose).and_return(nil)
-      mock.should_receive(:calculate!).and_return(nil)
-      # arbitrary value
-      mock.should_receive(:[]).with(:co2e).and_return(flexmock(:value => 1000))
-    end
-
+    flexmock(Checkin).should_receive(:carbon_for).with("long_haul_flight", distance).once.and_return(1000)
     Checkin.co2_for_km(distance).should eq 1000
-
   end
 
   it "should not calculate distances larger than the circumference of the planet" do |variable|
-
     distance = 40100
-    flexmock('Checkin').should_receive(:carbon_for).with(:long_haul_flight, distance)
-    flexmock(AMEE::DataAbstraction::OngoingCalculation).new_instances do |mock|
-      mock.should_receive(:choose).and_return(nil)
-      mock.should_receive(:calculate!).and_return(nil)
-      # arbitrary value
-      mock.should_receive(:[]).with(:co2e).and_return(flexmock(:value => 1000))
-    end
-
     # https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers/raise-error-matcher
     expect { Checkin.co2_for_km(distance) }.to raise_error
     expect { Checkin.co2_for_km(distance) }.to raise_error(DistanceError)

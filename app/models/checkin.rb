@@ -61,20 +61,17 @@ class Checkin < ActiveRecord::Base
 
   def self.carbon_for(transport, distance)
 
-    d "I'M BEING CALLED, DAMMIT! LOOK AT THE METHOD BEING CALLED!"
-    d { self.class }
-    d { __method__ }
-
-
-    return 0 if transport == 'walking'
-    # binding.pry
-    d {AMEE::DataAbstraction::CalculationSet.find('calculations').class }
-    Checkin.calculate_co2e_for_distance( distance, AMEE::DataAbstraction::CalculationSet.find('calculations').calculations[transport.to_sym] )
+    if transport == 'walking'
+      return 0
+    else
+      emission_model = AMEE::DataAbstraction::CalculationSet.find('calculations').calculations[transport]
+      Checkin.calculate_co2e_for_distance(distance, emission_model)
+    end
   end
 
   def self.co2_for_flight(checkin1, checkin2)
 
-    c = AMEE::DataAbstraction::CalculationSet.find(:route)[:route].begin_calculation
+    c = AMEE::DataAbstraction::CalculationSet.find('calculations')[:route].begin_calculation
 
     c.choose(
       :lat1 => checkin1.lat.to_f,
@@ -88,17 +85,11 @@ class Checkin < ActiveRecord::Base
 
   def self.calculate_co2e_for_distance(distance, calculation_prototype)
     
-    d {calculation_prototype.class}
-
     c = calculation_prototype.begin_calculation
 
-    d {c.class}
-
-    # binding.pry
-
     c.choose(
-    :amount => distance,
-    :name => rand(10e6)
+      :amount => distance,
+      :name => rand(10e6)
     )
     c.calculate!
     # add calculate and save here
@@ -198,9 +189,9 @@ class Checkin < ActiveRecord::Base
     # TODO turn to named scope - return list of checkins from the last 7 days
     @legs = user.legs.where("timestamp > ?", Date.current - 1.week )
 
-  # using delay makes this act as a delayed job
-  # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
-  FootprintMailer.footprint_email(user, @legs, app_url).deliver!
+    # using delay makes this act as a delayed job
+    # http://rdoc.info/github/collectiveidea/delayed_job/master/file/README.textile#Gory_Details
+    FootprintMailer.footprint_email(user, @legs, app_url).deliver!
 
   rescue => err
     binding.pry if Rails.env.development?

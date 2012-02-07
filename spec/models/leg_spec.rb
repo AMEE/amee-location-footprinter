@@ -86,20 +86,20 @@ describe Leg do
       
       # BUT! Calling this AND the ont below will cause this test to fail
       # chuff knows why
-      # a_full_mock = flexmock('Checkin')
-      # a_full_mock.should_receive(:carbon_for).once.and_return(0)
+      a_full_mock = flexmock('Checkin')
+      a_full_mock.should_receive(:carbon_for).once.and_return(0)
       
       d { a_full_mock.object_id }
       d { a_full_mock.class }      
       
       # this DOES work, assuming because it's making changes to a real object
       # that exists outside the scope of this example.
-      a_partial_mock = flexmock(Checkin)
-      
-      a_partial_mock.should_receive(:carbon_for).once.and_return(0)
-      
-      d { a_partial_mock.object_id }
-      d { a_partial_mock.class }
+      # a_partial_mock = flexmock(Checkin)
+      # 
+      # a_partial_mock.should_receive(:carbon_for).once.and_return(0)
+      # 
+      # d { a_partial_mock.object_id }
+      # d { a_partial_mock.class }
 
       # binding.pry
 
