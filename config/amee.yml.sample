@@ -1,0 +1,13 @@
+defaults: &defaults
+  server: stage.amee.com
+  username: YOUR_PROJECT_NAME
+  password: YOUR_PASSWORD
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
