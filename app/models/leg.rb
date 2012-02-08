@@ -10,19 +10,12 @@ class Leg < ActiveRecord::Base
   validates :co2, :distance, :start_checkin, :end_checkin, :mode_of_transport, :presence => true
 
   after_update do | leg |
-      d "\n"
-    d "#{leg.id} has just been updated."
-    if leg.changed.include? "mode_of_transport"
-      d "\n"
-      d {leg }
+    if ( leg.changed.include? "mode_of_transport" or leg.changed.include? "distance")
+
       leg.recalculate_distance!
-      d "\n"
-      d "recalculatiing that carbon!"
-      d "\n"
-      d "\n"
+      d {leg.co2}
       leg.co2 = Checkin.carbon_for leg.mode_of_transport, leg.distance
-      d {leg }
-      d "\n"
+      d {leg.co2}
     end
   end
 

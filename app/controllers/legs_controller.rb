@@ -30,6 +30,16 @@ class LegsController < ApplicationController
     @leg = u.legs.where(:id => params[:id]).first
   end
 
+  def update
+    u = User.find_by_foursquare_id(current_user.id)    
+    @leg = u.legs.where(:id => params[:id]).first
+    
+    if @leg.update_attributes!(params[:leg])
+      redirect_to(@leg, :notice => 'Journey leg successfully updated.')
+    end
+    
+  end
+
   private
 
 end

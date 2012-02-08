@@ -24,7 +24,8 @@ describe LegsController do
         :name => foursquare_user.name,
         :foursquare_id => foursquare_user.id.to_i,
         :last_email_sent => Date.current - 8.day,
-        :token => session[:access_token]
+        :token => session[:access_token],
+        :id => 7661144
       })
 
       # build some checkins - if user has reached this point, they already to have them
@@ -33,6 +34,8 @@ describe LegsController do
       # set time, then freeze it with TimeCop
       frozen_time = Time.local(2012, 2, 7, 22, 52, 0)
       Timecop.freeze(frozen_time)
+
+      
 
       @first_checkin  = FactoryGirl.create(:checkin, :user => u, :foursquare_id => new_uuid, :timestamp => 1.day.ago)
       @second_checkin = FactoryGirl.create(:checkin, :user => u, :foursquare_id => new_uuid, :timestamp => 23.hours.ago)
@@ -74,10 +77,15 @@ describe LegsController do
       assigns[:leg].should be_a Leg  
     end
 
-    it "lets you update a journey's distance and travel method " do
-      put "update", :id => Leg.first.id
+    context "PUT updates to a journey leg with valid attributes" do
 
+      it "update a journey legs details" do
+        leg = User.first.legs.first
+        put "update", :id => leg.id, :mode_of_transport => "walking", :distance => 2.00
 
+        response.should redirect_to leg_path(leg)
+      end
+      
     end
 
   end
